@@ -1,0 +1,152 @@
+2014-12-10  Tetsumune KISO  <t2mune@gmail.com>
+	* Release - nield 0.6.0 released.
+	* News - moved from sourceforge to github.
+
+2014-10-05  Tetsumune KISO  <t2mune@gmail.com>
+	* Update - added a support for "IFLA_BRPORT_*" attributes.
+
+2014-04-28  Tetsumune KISO  <t2mune@gmail.com>
+	* Release - nield 0.5.1 released.
+
+2014-04-24  Tetsumune KISO  <t2mune@gmail.com>
+	* Update - added a code to verify whether a message originates from kernel.
+	* Update - deleted kernel header files.
+
+2014-04-18  Tetsumune KISO  <t2mune@gmail.com>
+	* Update - "contrib/fedora/nield.service" added.
+
+2014-02-26  Tetsumune KISO  <t2mune@gmail.com>
+	* Release - nield 0.5.0 released.
+
+2014-01-22  Tetsumune KISO  <t2mune@gmail.com>
+	* Update - "-s" option added. It change a receive buffer size of socket.
+
+2013-10-10  Tetsumune KISO  <t2mune@gmail.com>
+	* Bug fix - can't display a routing table id properly.
+
+2013-08-07  Tetsumune KISO  <t2mune@gmail.com>
+	* Release - nield 0.4.0 released. This release includes traffic
+	control support.
+
+2013-04-14  Tetsumune KISO  <t2mune@gmail.com>
+	* Update - log fromat changed.
+
+2013-04-11  Tetsumune KISO  <t2mune@gmail.com>
+	* Update - add a SIGUSR1 signal handler to print a list of current interfaces(/tmp/nield.list).
+	* Update - add a SIGUSR2 signal handler to print a list of deleted interfaces(/tmp/nield.hist).
+
+2013-03-08  Tetsumune KISO  <t2mune@gmail.com>
+	* Update - "unresolved" message in neighbor cache added.
+
+2012-08-17  Tetsumune KISO  <t2mune@gmail.com>
+	* Bug fix - Display an old usage.
+
+2012-06-23  Tetsumune KISO  <t2mune@gmail.com>
+	* Release - nield 0.3.0
+	* Update - syslog support
+	* Update - man page
+
+2012-04-28  Tetsumune KISO  <t2mune@gmail.com>
+	* Update - It was updated a man page.
+
+2012-04-25  Tetsumune KISO  <t2mune@gmail.com>
+	* Update - It was updated to monitor a promiscuous mode of an interface.
+
+2012-04-11  Tetsumune KISO  <t2mune@gmail.com>
+	* Release - nield 0.23 was released.
+	* Bug fix - ARP & NDP of multiple interfaces in the same segment
+	cannot be handled properly.
+
+2012-04-02  Tetsumune KISO  <t2mune@gmail.com>
+	* -p option to make possible to run more processes was added.
+
+2012-02-10  Tetsumune KISO  <t2mune@gmail.com>
+	* nield 0.22 released.
+	* It changed use variable "extra_commands" instead of "OPTIONS" in
+	"contrib/gentoo/nield".
+
+2012-01-24  Tetsumune KISO  <t2mune@gmail.com>
+	* It changed to display an interface name of IFLA_LINK.
+
+2012-01-20  Tetsumune KISO  <t2mune@gmail.com>
+	* It changed to compare ifi_index with IFLA_MASTER in ifimsg.c if ifi_family is PF_BRIDGE
+	(workaround: "ovs-vsctl add-br" command).
+
+2011-12-27  Tetsumune KISO  <t2mune@gmail.com>
+	* nield 0.21 released.
+
+2011-12-25  Tetsumune KISO  <t2mune@gmail.com>
+	* It changed to debug __ifi_pad.
+
+2011-12-24  Tetsumune KISO  <t2mune@gmail.com>
+	* It changed to debug IFLA_VLAN_*, IFLA_VLAN_QOS_*.
+
+2011-12-23  Tetsumune KISO  <t2mune@gmail.com>
+	* It improved the code.
+
+2011-12-22  Tetsumune KISO  <t2mune@gmail.com>
+	* "linux/*.h" was replaced the ones of linux 3.1.5.
+	* It added a suuport for gretap interface.
+
+2011-11-30  Tetsumune KISO  <t2mune@gmail.com>
+	* The bug that it can't dispay an address of a TUN device correctly
+	was fixed.
+
+2011-09-28  Tetsumune KISO  <t2mune@gmail.com>
+	* It changed a format of unknown ifam_scope value.
+
+2011-08-21  Tetsumune KISO  <t2mune@gmail.com>
+	* Invalid format of rec_log in nield.c is fixed.
+
+2011-08-17  Tetsumune KISO  <t2mune@gmail.com>
+
+	* nield 0.20 released.
+	* It added new events to display the state of the bonding interface.
+
+2011-08-16  Tetsumune KISO  <t2mune@gmail.com>
+
+	* It added new events to display the state of the ehternet bridge.
+	* IFLA_MASTER "master" was added to the interface list "iflist_entry".
+
+2011-08-15  Tetsumune KISO  <t2mune@gmail.com>
+
+	* IFLA_INFO_KIND "kind" was added to the interface list "iflist_entry".
+	* It changed to debug IFLA_AF_SPEC(but ignored).
+	* "linux/if_link.h" was changed the one of linux 3.0.
+	* It added the ability to display the interface name when debug IFLA_MASTER.
+
+2011-08-14  Tetsumune KISO  <t2mune@gmail.com>
+
+	* It changed to debug IFLA_STATS64, IFLA_VF_PORTS and
+	IFLA_PORT_SELF(but ignored).
+
+2011-08-13  Tetsumune KISO  <t2mune@gmail.com>
+
+	* It chaned not to display an error even if there is a message related
+	to other than AF_INET and AF_INET6 in neighbor discovery messages(for
+	linux 3.0).
+	* It changed the order of operations to parse attributes and debug
+	messages.
+	* It changed a debug format.
+
+2011-08-12  Tetsumune KISO  <t2mune@gmail.com>
+
+	* "__func__" was added in ERROR message.
+
+2011-08-03  Tetsumune KISO  <t2mune@gmail.com>
+
+	* Kinds of IFLA_INFO_KIND other than vlan, bond, tun were able to be displayed.
+
+2011-07-30  Tetsumune KISO  <t2mune@gmail.com>
+
+	* The bug that is not able to generate a log correctly for IPV6CP was
+	fixed.
+
+2011-06-21  Tetsumune KISO  <t2mune@gmail.com>
+
+	* nield 0.11 released.
+	* It fixed to debug rtm_flags and check RTM_F_CLONED.
+
+2011-01-23  Tetsumune KISO  <t2mune@gmail.com>
+
+	* nield 0.10 released.

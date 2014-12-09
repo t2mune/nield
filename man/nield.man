@@ -1,0 +1,101 @@
+.TH NIELD 8 "Feb 26 2014" "nield" ""
+.SH NAME
+nield \- Network Interface Events Logging Daemon
+.SH SYNOPSIS
+.B nield
+.B [-vh46inarft]
+.BI "[\-p " lock_file "]"
+.BI "[\-s " buffer_size "]"
+.BI "[\-l " log_file "]"
+.BI "[\-L " syslog_facility "]"
+.BI "[\-d " debug_file "]"
+
+.SH DESCRIPTION
+nield (Network Interface Events Logging Daemon) is a tool to receive notifications from kernel through netlink socket, and generate logs related to interfaces, neighbor cache (ARP,NDP), IP address (IPv4,IPv6), routing, FIB rules, traffic control.
+It can be configured using command-line options.
+.SH OPTIONS
+The following options are supported.
+
+.TP
+Standard options:
+.TP
+.BR "\-v"
+Displays the version and exit.
+.TP
+.BR "\-h"
+Displays the usage and exit.
+.TP
+.BR "\-p " lock_file
+Specifies the lock file to use. Default is "/var/run/nield.pid", if not specified.
+.TP
+.BR "\-s " buffer_size
+Specifies the maximum socket receive buffer in bytes.
+
+.TP
+Logging options:
+It uses the log file "/var/log/nield.log", if neither "\-l" nor "\-L" specified.
+.TP
+.BR "\-l " log_file
+Specifies the log file to use.
+.TP
+.BR "\-L " syslog_facility
+Specifies the facility to use logging events via syslog.
+
+The standard syslog facilities are as follows:
+.br
+    auth, authpriv, cron, daemon, ftp, kern, lpr, mail, mark, news, security, syslog,
+    user, uucp, local0, local1, local2, local3, local4, local5, local6, local7
+.TP
+.BR "\-d " debug_file
+Specifies the debug file to use.
+
+.TP
+Event options:
+All events are received, if any event option not specified.
+.TP
+.BR "\-4"
+Logging events related to IPv4.
+.TP
+.BR "\-6"
+Logging events related to IPv6.
+.TP
+.BR "\-i"
+Logging events related to interfaces.
+.TP
+.BR "\-n"
+Logging events related to neigbour cache(ARP, NDP).
+.TP
+.BR "\-a"
+Logging events related to IP address.
+.TP
+.BR "\-r"
+Logging events related to routing.
+.TP
+.BR "\-f"
+Logging events related to fib rules.
+.TP
+.BR "\-t"
+Logging events related to traffic control.
+.SH FILES
+
+.nf
+/usr/sbin/nield
+/var/run/nield.pid
+/var/log/nield.log
+/usr/share/man/man8/nield.8
+.fi
+.SH BUGS
+
+If you find bugs or have other suggestions, please contact Tetsumune KISO <t2mune@gmail.com>
+
+.SH "SEE ALSO"
+
+.BR netlink (3),
+.BR netlink (7),
+.BR rtnetlink (3),
+.BR rtnetlink (7)
+.SH AUTHORS
+
+.nf
+Tetsumune KISO <t2mune@gmail.com>
+.fi

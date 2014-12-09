@@ -1,0 +1,31 @@
+
+01. Building / Installation
+---------------------------
+
+To install/build nield:
+
+tar xvzf nield-x.x.x.tar.gz
+cd nield-x.x.x
+./configure
+make
+make install
+
+02. Startup Script
+------------------
+
+To install startup script:
+
+CentOS, Redhat, Fedora:
+
+cp -p contrib/redhat/nield /etc/init.d/
+chkconfig --add nield
+
+Ubuntu:
+
+sudo cp -p contrib/ubuntu/nield /etc/init.d/
+sudo sysrc-conf nield on
+
+Gentoo:
+
+cp -p contrib/gentoo/nield /etc/init.d/
+rc-update add nield default

@@ -1,0 +1,496 @@
+/* config.h.in.  Generated from configure.ac by autoheader.  */
+
+/* Define to 1 if you have the <arpa/inet.h> header file. */
+#undef HAVE_ARPA_INET_H
+
+/* Define to 1 if you have the <asm/types.h> header file. */
+#undef HAVE_ASM_TYPES_H
+
+/* Define to 1 if you have the declaration of `FLOW_KEY_RXHASH', and to 0 if
+   you don't. */
+#undef HAVE_DECL_FLOW_KEY_RXHASH
+
+/* Define to 1 if you have the declaration of `FRA_GOTO', and to 0 if you
+   don't. */
+#undef HAVE_DECL_FRA_GOTO
+
+/* Define to 1 if you have the declaration of `FRA_OIFNAME', and to 0 if you
+   don't. */
+#undef HAVE_DECL_FRA_OIFNAME
+
+/* Define to 1 if you have the declaration of `FR_ACT_GOTO', and to 0 if you
+   don't. */
+#undef HAVE_DECL_FR_ACT_GOTO
+
+/* Define to 1 if you have the declaration of `FR_ACT_NOP', and to 0 if you
+   don't. */
+#undef HAVE_DECL_FR_ACT_NOP
+
+/* Define to 1 if you have the declaration of `FR_ACT_RES1', and to 0 if you
+   don't. */
+#undef HAVE_DECL_FR_ACT_RES1
+
+/* Define to 1 if you have the declaration of `FR_ACT_RES2', and to 0 if you
+   don't. */
+#undef HAVE_DECL_FR_ACT_RES2
+
+/* Define to 1 if you have the declaration of `IFLA_AF_SPEC', and to 0 if you
+   don't. */
+#undef HAVE_DECL_IFLA_AF_SPEC
+
+/* Define to 1 if you have the declaration of `IFLA_BOND_MIIMON', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_BOND_MIIMON
+
+/* Define to 1 if you have the declaration of `IFLA_BOND_UNSPEC', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_BOND_UNSPEC
+
+/* Define to 1 if you have the declaration of `IFLA_BRPORT_LEARNING', and to 0
+   if you don't. */
+#undef HAVE_DECL_IFLA_BRPORT_LEARNING
+
+/* Define to 1 if you have the declaration of `IFLA_BRPORT_UNSPEC', and to 0
+   if you don't. */
+#undef HAVE_DECL_IFLA_BRPORT_UNSPEC
+
+/* Define to 1 if you have the declaration of `IFLA_CARRIER', and to 0 if you
+   don't. */
+#undef HAVE_DECL_IFLA_CARRIER
+
+/* Define to 1 if you have the declaration of `IFLA_EXT_MASK', and to 0 if you
+   don't. */
+#undef HAVE_DECL_IFLA_EXT_MASK
+
+/* Define to 1 if you have the declaration of `IFLA_GRE_ENCAP_LIMIT', and to 0
+   if you don't. */
+#undef HAVE_DECL_IFLA_GRE_ENCAP_LIMIT
+
+/* Define to 1 if you have the declaration of `IFLA_GRE_UNSPEC', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_GRE_UNSPEC
+
+/* Define to 1 if you have the declaration of `IFLA_GROUP', and to 0 if you
+   don't. */
+#undef HAVE_DECL_IFLA_GROUP
+
+/* Define to 1 if you have the declaration of `IFLA_IFALIAS', and to 0 if you
+   don't. */
+#undef HAVE_DECL_IFLA_IFALIAS
+
+/* Define to 1 if you have the declaration of `IFLA_INFO_SLAVE_KIND', and to 0
+   if you don't. */
+#undef HAVE_DECL_IFLA_INFO_SLAVE_KIND
+
+/* Define to 1 if you have the declaration of `IFLA_LINKINFO', and to 0 if you
+   don't. */
+#undef HAVE_DECL_IFLA_LINKINFO
+
+/* Define to 1 if you have the declaration of `IFLA_MACVLAN_FLAGS', and to 0
+   if you don't. */
+#undef HAVE_DECL_IFLA_MACVLAN_FLAGS
+
+/* Define to 1 if you have the declaration of `IFLA_MACVLAN_UNSPEC', and to 0
+   if you don't. */
+#undef HAVE_DECL_IFLA_MACVLAN_UNSPEC
+
+/* Define to 1 if you have the declaration of `IFLA_NET_NS_FD', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_NET_NS_FD
+
+/* Define to 1 if you have the declaration of `IFLA_NET_NS_PID', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_NET_NS_PID
+
+/* Define to 1 if you have the declaration of `IFLA_NUM_RX_QUEUES', and to 0
+   if you don't. */
+#undef HAVE_DECL_IFLA_NUM_RX_QUEUES
+
+/* Define to 1 if you have the declaration of `IFLA_NUM_TX_QUEUES', and to 0
+   if you don't. */
+#undef HAVE_DECL_IFLA_NUM_TX_QUEUES
+
+/* Define to 1 if you have the declaration of `IFLA_NUM_VF', and to 0 if you
+   don't. */
+#undef HAVE_DECL_IFLA_NUM_VF
+
+/* Define to 1 if you have the declaration of `IFLA_PHYS_PORT_ID', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_PHYS_PORT_ID
+
+/* Define to 1 if you have the declaration of `IFLA_PORT_SELF', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_PORT_SELF
+
+/* Define to 1 if you have the declaration of `IFLA_PROMISCUITY', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_PROMISCUITY
+
+/* Define to 1 if you have the declaration of `IFLA_STATS64', and to 0 if you
+   don't. */
+#undef HAVE_DECL_IFLA_STATS64
+
+/* Define to 1 if you have the declaration of `IFLA_VFINFO_LIST', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_VFINFO_LIST
+
+/* Define to 1 if you have the declaration of `IFLA_VF_PORTS', and to 0 if you
+   don't. */
+#undef HAVE_DECL_IFLA_VF_PORTS
+
+/* Define to 1 if you have the declaration of `IFLA_VLAN_PROTOCOL', and to 0
+   if you don't. */
+#undef HAVE_DECL_IFLA_VLAN_PROTOCOL
+
+/* Define to 1 if you have the declaration of `IFLA_VLAN_UNSPEC', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_VLAN_UNSPEC
+
+/* Define to 1 if you have the declaration of `IFLA_VXLAN_GROUP', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_VXLAN_GROUP
+
+/* Define to 1 if you have the declaration of `IFLA_VXLAN_GROUP6', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_VXLAN_GROUP6
+
+/* Define to 1 if you have the declaration of `IFLA_VXLAN_PORT', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_VXLAN_PORT
+
+/* Define to 1 if you have the declaration of `IFLA_VXLAN_PROXY', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_VXLAN_PROXY
+
+/* Define to 1 if you have the declaration of `IFLA_VXLAN_REMOTE', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_VXLAN_REMOTE
+
+/* Define to 1 if you have the declaration of `IFLA_VXLAN_UNSPEC', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IFLA_VXLAN_UNSPEC
+
+/* Define to 1 if you have the declaration of `MACVLAN_MODE_PASSTHRU', and to
+   0 if you don't. */
+#undef HAVE_DECL_MACVLAN_MODE_PASSTHRU
+
+/* Define to 1 if you have the declaration of `RTA_MARK', and to 0 if you
+   don't. */
+#undef HAVE_DECL_RTA_MARK
+
+/* Define to 1 if you have the declaration of `RTPROT_DHCP', and to 0 if you
+   don't. */
+#undef HAVE_DECL_RTPROT_DHCP
+
+/* Define to 1 if you have the declaration of `RT_TABLE_COMPAT', and to 0 if
+   you don't. */
+#undef HAVE_DECL_RT_TABLE_COMPAT
+
+/* Define to 1 if you have the declaration of `TCA_CGROUP_UNSPEC', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_CGROUP_UNSPEC
+
+/* Define to 1 if you have the declaration of `TCA_CHOKE_UNSPEC', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_CHOKE_UNSPEC
+
+/* Define to 1 if you have the declaration of `TCA_CODEL_UNSPEC', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_CODEL_UNSPEC
+
+/* Define to 1 if you have the declaration of `TCA_DRR_UNSPEC', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_DRR_UNSPEC
+
+/* Define to 1 if you have the declaration of `TCA_FLOW_UNSPEC', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_FLOW_UNSPEC
+
+/* Define to 1 if you have the declaration of `TCA_FQ_CODEL_UNSPEC', and to 0
+   if you don't. */
+#undef HAVE_DECL_TCA_FQ_CODEL_UNSPEC
+
+/* Define to 1 if you have the declaration of `TCA_FW_MASK', and to 0 if you
+   don't. */
+#undef HAVE_DECL_TCA_FW_MASK
+
+/* Define to 1 if you have the declaration of `TCA_GRED_MAX_P', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_GRED_MAX_P
+
+/* Define to 1 if you have the declaration of `TCA_NETEM_ECN', and to 0 if you
+   don't. */
+#undef HAVE_DECL_TCA_NETEM_ECN
+
+/* Define to 1 if you have the declaration of `TCA_NETEM_LOSS', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_NETEM_LOSS
+
+/* Define to 1 if you have the declaration of `TCA_NETEM_RATE', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_NETEM_RATE
+
+/* Define to 1 if you have the declaration of `TCA_QFQ_UNSPEC', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_QFQ_UNSPEC
+
+/* Define to 1 if you have the declaration of `TCA_RED_MAX_P', and to 0 if you
+   don't. */
+#undef HAVE_DECL_TCA_RED_MAX_P
+
+/* Define to 1 if you have the declaration of `TCA_SFB_UNSPEC', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_SFB_UNSPEC
+
+/* Define to 1 if you have the declaration of `TCA_SKBEDIT_MARK', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_SKBEDIT_MARK
+
+/* Define to 1 if you have the declaration of `TCA_STAB_UNSPEC', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_STAB_UNSPEC
+
+/* Define to 1 if you have the declaration of `TCF_EM_CANID', and to 0 if you
+   don't. */
+#undef HAVE_DECL_TCF_EM_CANID
+
+/* Define to 1 if you have the declaration of `TCF_EM_IPSET', and to 0 if you
+   don't. */
+#undef HAVE_DECL_TCF_EM_IPSET
+
+/* Define to 1 if you have the declaration of `TCF_EM_VLAN', and to 0 if you
+   don't. */
+#undef HAVE_DECL_TCF_EM_VLAN
+
+/* Define to 1 if you have the declaration of `TCF_META_ID_RXHASH', and to 0
+   if you don't. */
+#undef HAVE_DECL_TCF_META_ID_RXHASH
+
+/* Define to 1 if you have the declaration of `VLAN_FLAG_GVRP', and to 0 if
+   you don't. */
+#undef HAVE_DECL_VLAN_FLAG_GVRP
+
+/* Define to 1 if you have the declaration of `VLAN_FLAG_LOOSE_BINDING', and
+   to 0 if you don't. */
+#undef HAVE_DECL_VLAN_FLAG_LOOSE_BINDING
+
+/* Define to 1 if you have the declaration of `VLAN_FLAG_REORDER_HDR', and to
+   0 if you don't. */
+#undef HAVE_DECL_VLAN_FLAG_REORDER_HDR
+
+/* Define to 1 if you have the <fcntl.h> header file. */
+#undef HAVE_FCNTL_H
+
+/* Define to 1 if you have the `gettimeofday' function. */
+#undef HAVE_GETTIMEOFDAY
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the `m' library (-lm). */
+#undef HAVE_LIBM
+
+/* Define to 1 if you have the <linux/fib_rules.h> header file. */
+#undef HAVE_LINUX_FIB_RULES_H
+
+/* Define to 1 if you have the <linux/gen_stats.h> header file. */
+#undef HAVE_LINUX_GEN_STATS_H
+
+/* Define to 1 if you have the <linux/if_arp.h> header file. */
+#undef HAVE_LINUX_IF_ARP_H
+
+/* Define to 1 if you have the <linux/if_bonding> header file. */
+#undef HAVE_LINUX_IF_BONDING
+
+/* Define to 1 if you have the <linux/if_bridge.h> header file. */
+#undef HAVE_LINUX_IF_BRIDGE_H
+
+/* Define to 1 if you have the <linux/if_ether.h> header file. */
+#undef HAVE_LINUX_IF_ETHER_H
+
+/* Define to 1 if you have the <linux/if.h> header file. */
+#undef HAVE_LINUX_IF_H
+
+/* Define to 1 if you have the <linux/if_tunnel.h> header file. */
+#undef HAVE_LINUX_IF_TUNNEL_H
+
+/* Define to 1 if you have the <linux/if_vlan.h> header file. */
+#undef HAVE_LINUX_IF_VLAN_H
+
+/* Define to 1 if you have the <linux/ip.h> header file. */
+#undef HAVE_LINUX_IP_H
+
+/* Define to 1 if you have the <linux/pkt_cls.h> header file. */
+#undef HAVE_LINUX_PKT_CLS_H
+
+/* Define to 1 if you have the <linux/rtnetlink.h> header file. */
+#undef HAVE_LINUX_RTNETLINK_H
+
+/* Define to 1 if you have the <linux/tc_act/tc_csum.h> header file. */
+#undef HAVE_LINUX_TC_ACT_TC_CSUM_H
+
+/* Define to 1 if you have the <linux/tc_act/tc_gact.h> header file. */
+#undef HAVE_LINUX_TC_ACT_TC_GACT_H
+
+/* Define to 1 if you have the <linux/tc_act/tc_ipt.h> header file. */
+#undef HAVE_LINUX_TC_ACT_TC_IPT_H
+
+/* Define to 1 if you have the <linux/tc_act/tc_mirred.h> header file. */
+#undef HAVE_LINUX_TC_ACT_TC_MIRRED_H
+
+/* Define to 1 if you have the <linux/tc_act/tc_nat.h> header file. */
+#undef HAVE_LINUX_TC_ACT_TC_NAT_H
+
+/* Define to 1 if you have the <linux/tc_act/tc_pedit.h> header file. */
+#undef HAVE_LINUX_TC_ACT_TC_PEDIT_H
+
+/* Define to 1 if you have the <linux/tc_act/tc_skbedit.h> header file. */
+#undef HAVE_LINUX_TC_ACT_TC_SKBEDIT_H
+
+/* Define to 1 if you have the <linux/tc_ematch/tc_em_cmp.h> header file. */
+#undef HAVE_LINUX_TC_EMATCH_TC_EM_CMP_H
+
+/* Define to 1 if you have the <linux/tc_ematch/tc_em_meta.h> header file. */
+#undef HAVE_LINUX_TC_EMATCH_TC_EM_META_H
+
+/* Define to 1 if you have the <linux/tc_ematch/tc_em_nbyte.h> header file. */
+#undef HAVE_LINUX_TC_EMATCH_TC_EM_NBYTE_H
+
+/* Define to 1 if you have the <linux/tc_ematch/tc_em_text.h> header file. */
+#undef HAVE_LINUX_TC_EMATCH_TC_EM_TEXT_H
+
+/* Define to 1 if you have the <linux/types.h> header file. */
+#undef HAVE_LINUX_TYPES_H
+
+/* Define to 1 if your system has a GNU libc compatible `malloc' function, and
+   to 0 otherwise. */
+#undef HAVE_MALLOC
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the `memset' function. */
+#undef HAVE_MEMSET
+
+/* Define to 1 if you have the <netdb.h> header file. */
+#undef HAVE_NETDB_H
+
+/* Define to 1 if you have the <netinet/in.h> header file. */
+#undef HAVE_NETINET_IN_H
+
+/* Define to 1 if you have the <net/ethernet.h> header file. */
+#undef HAVE_NET_ETHERNET_H
+
+/* Define to 1 if you have the `pow' function. */
+#undef HAVE_POW
+
+/* Define to 1 if you have the `socket' function. */
+#undef HAVE_SOCKET
+
+/* Define to 1 if you have the <stddef.h> header file. */
+#undef HAVE_STDDEF_H
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the `strerror' function. */
+#undef HAVE_STRERROR
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the `strstr' function. */
+#undef HAVE_STRSTR
+
+/* Define to 1 if `bands' is a member of `struct tc_multiq_qopt'. */
+#undef HAVE_STRUCT_TC_MULTIQ_QOPT_BANDS
+
+/* Define to 1 if `action' is a member of `struct tc_plug_qopt'. */
+#undef HAVE_STRUCT_TC_PLUG_QOPT_ACTION
+
+/* Define to 1 if `addend' is a member of `struct tc_ratespec'. */
+#undef HAVE_STRUCT_TC_RATESPEC_ADDEND
+
+/* Define to 1 if `cell_align' is a member of `struct tc_ratespec'. */
+#undef HAVE_STRUCT_TC_RATESPEC_CELL_ALIGN
+
+/* Define to 1 if `feature' is a member of `struct tc_ratespec'. */
+#undef HAVE_STRUCT_TC_RATESPEC_FEATURE
+
+/* Define to 1 if `linklayer' is a member of `struct tc_ratespec'. */
+#undef HAVE_STRUCT_TC_RATESPEC_LINKLAYER
+
+/* Define to 1 if `overhead' is a member of `struct tc_ratespec'. */
+#undef HAVE_STRUCT_TC_RATESPEC_OVERHEAD
+
+/* Define to 1 if `__reserved' is a member of `struct tc_ratespec'. */
+#undef HAVE_STRUCT_TC_RATESPEC___RESERVED
+
+/* Define to 1 if `v0' is a member of `struct tc_sfq_qopt_v1'. */
+#undef HAVE_STRUCT_TC_SFQ_QOPT_V1_V0
+
+/* Define to 1 if `allot' is a member of `struct tc_sfq_xstats'. */
+#undef HAVE_STRUCT_TC_SFQ_XSTATS_ALLOT
+
+/* Define to 1 if you have the <sys/socket.h> header file. */
+#undef HAVE_SYS_SOCKET_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/syslog.h> header file. */
+#undef HAVE_SYS_SYSLOG_H
+
+/* Define to 1 if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Version number of package */
+#undef VERSION
+
+/* Define to `__inline__' or `__inline' if that's what the C compiler
+   calls it, or to nothing if 'inline' is not supported under any name.  */
+#ifndef __cplusplus
+#undef inline
+#endif
+
+/* Define to rpl_malloc if the replacement function should be used. */
+#undef malloc
+
+/* Define to `int' if <sys/types.h> does not define. */
+#undef pid_t
