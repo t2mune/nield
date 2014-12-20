@@ -1,3 +1,6 @@
+2014-12-20  Tetsumune KISO  <t2mune@gmail.com>
+	* Update - added an Upstart job for nield contributed by Cameron Norman.
+
 2014-12-10  Tetsumune KISO  <t2mune@gmail.com>
 	* Release - nield 0.6.0 released.
 	* News - moved from sourceforge to github.
