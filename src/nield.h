@@ -332,7 +332,9 @@ void debug_ifla_vxlan_port_range(int lev, struct rtattr *vxlan, const char *name
 #if HAVE_DECL_IFLA_BOND_UNSPEC
 int parse_ifla_bond(char *msg, char **mp, struct rtattr *info, struct iflist_entry *ifle);
 int parse_ifla_bond_mode(char *msg, char **mp, struct rtattr *bond, struct iflist_entry *ifle);
+#if HAVE_DECL_IFLA_BOND_MIIMON
 int parse_ifla_bond_xmit_hash_policy(char *msg, char **mp, struct rtattr *bond, struct iflist_entry *ifle);
+#endif
 void debug_ifla_bond(int lev, struct rtattr *info);
 #if HAVE_DECL_IFLA_BOND_MIIMON
 void debug_ifla_bond_arp_ip_target(int lev, struct rtattr *bond, const char *name);
