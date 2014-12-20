@@ -17,11 +17,11 @@ linux
     $ make
     # make install
 
-##USAGE
+##Usage
 
     nield [-vh46inarft] [-p lock_file] [-s buffer_size] [-l log_file] [-L syslog_facility] [-d debug_file]
 
-##OPTIONS
+##Options
 
     Standard options:
 
@@ -70,7 +70,7 @@ linux
 
         -t     Logging events related to traffic control.
 
-##FILES
+##Files
     /usr/sbin/nield
     /var/run/nield.pid
     /var/log/nield.log
