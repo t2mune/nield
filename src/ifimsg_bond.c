@@ -34,10 +34,12 @@ int parse_ifla_bond(char *msg, char **mp,
         if(parse_ifla_bond_mode(msg, mp, bond[IFLA_BOND_MODE], ifle))
             return(1);
 
+#if HAVE_DECL_IFLA_BOND_MIIMON
     if(bond[IFLA_BOND_XMIT_HASH_POLICY])
         if(parse_ifla_bond_xmit_hash_policy(msg, mp,
             bond[IFLA_BOND_XMIT_HASH_POLICY], ifle))
             return(1);
+#endif
 
     return(0);
 }
@@ -61,6 +63,7 @@ int parse_ifla_bond_mode(char *msg, char **mp,
     return(0);
 }
 
+#if HAVE_DECL_IFLA_BOND_MIIMON
 /*
  * parse attribute IFLA_BOND_XMIT_HASH_POLICY
  */
@@ -79,6 +82,8 @@ int parse_ifla_bond_xmit_hash_policy(char *msg, char **mp,
 
     return(0);
 }
+#endif
+
 /*
  * debug BOND interface information messages
  */
