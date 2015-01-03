@@ -47,6 +47,7 @@ int parse_tca_options_choke(char *msg, char **mp, struct rtattr *tca)
         }
     }
 
+#if HAVE_DECL_TCA_CHOKE_MAX_P
     if(choke[TCA_CHOKE_MAX_P]) {
         if(RTA_PAYLOAD(choke[TCA_CHOKE_MAX_P]) < sizeof(unsigned)) {
             rec_log("error: %s: TCA_CHOKE_MAX_P: payload too short", __func__);
@@ -55,6 +56,7 @@ int parse_tca_options_choke(char *msg, char **mp, struct rtattr *tca)
         *mp = add_log(msg, *mp, "probability=%g(%%) ",
             *(unsigned *)RTA_DATA(choke[TCA_CHOKE_MAX_P]) / pow(2, 32) * 100);
     }
+#endif
 
     return(0);
 }
@@ -77,9 +79,11 @@ void debug_tca_options_choke(int lev, struct rtattr *tca, const char *name)
         debug_rta_ignore(lev+1, choke[TCA_CHOKE_STAB],
             "TCA_CHOKE_STAB");
 
+#if HAVE_DECL_TCA_GRED_MAX_P
     if(choke[TCA_CHOKE_MAX_P])
         debug_rta_u32(lev+1, choke[TCA_CHOKE_MAX_P],
             "TCA_CHOKE_MAX_P", NULL);
+#endif
 }
 
 /*

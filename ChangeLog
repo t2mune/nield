@@ -1,3 +1,6 @@
+2015-01-04  Tetsumune KISO  <t2mune@gmail.com>
+	* Bug fix - ¡ÆTCA_CHOKE_MAX_P¡Ç undeclared.
+
 2015-01-03  Tetsumune KISO  <t2mune@gmail.com>
 	* Bug fix - repeatedly generated the same log when configured IPv6 address
 	via SLAAC.
