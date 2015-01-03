@@ -1,3 +1,7 @@
+2014-01-03  Tetsumune KISO  <t2mune@gmail.com>
+	* Bug fix - repeatedly generated the same log when configured IPv6 address
+	via SLAAC.
+
 2014-12-21  Tetsumune KISO  <t2mune@gmail.com>
 	* Bug fix - 'IFLA_BOND_XMIT_HASH_POLICY' undeclared. Thanks to navitiello
 	for the bug report.

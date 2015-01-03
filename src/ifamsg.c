@@ -119,7 +119,7 @@ int parse_ifamsg(struct nlmsghdr *nlh)
 
     /* get interface label */
     if(ifa[IFA_LABEL]) {
-        if(!RTA_PAYLOAD(ifa[IFA_LABEL]) > sizeof(iflabel)) {
+        if(RTA_PAYLOAD(ifa[IFA_LABEL]) > sizeof(iflabel)) {
             rec_log("error: %s: IFA_LABEL(ifindex %d): no payload",
                 __func__, ifam->ifa_index);
             return(1);
@@ -131,6 +131,21 @@ int parse_ifamsg(struct nlmsghdr *nlh)
         memcpy(iflabel, RTA_DATA(ifa[IFA_LABEL]), IFNAMSIZ);
         if(strcmp(iflabel, ifname))
             mp = add_log(msg, mp, "label=%s ", iflabel);
+    }
+
+    if(ifa[IFA_CACHEINFO] && nlh->nlmsg_type == RTM_NEWADDR) {
+        struct ifa_cacheinfo *ifac;
+
+        if(RTA_PAYLOAD(ifa[IFA_CACHEINFO]) < sizeof(*ifac)) {
+            rec_log("error: %s: IFA_CACHEINFO(ifindex %d): payload too short",
+                __func__, ifam->ifa_index);
+            return(1);
+        }
+
+        ifac = (struct ifa_cacheinfo *)RTA_DATA(ifa[IFA_CACHEINFO]);
+        /* logging only when created not updated */
+        if(ifac->cstamp != ifac->tstamp)
+            return(1);
     }
 
     /* logging interface address message */
