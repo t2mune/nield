@@ -5521,6 +5521,22 @@ fi
 cat >>confdefs.h <<_ACEOF
 #define HAVE_DECL_TCA_CHOKE_UNSPEC $ac_have_decl
 _ACEOF
+ac_fn_c_check_decl "$LINENO" "TCA_CHOKE_MAX_P" "ac_cv_have_decl_TCA_CHOKE_MAX_P" "#ifdef HAVE_LINUX_TYPES_H
+# include <linux/types.h>
+#endif
+#ifdef HAVE_LINUX_PKT_CLS_H
+# include <linux/pkt_cls.h>
+#endif
+"
+if test "x$ac_cv_have_decl_TCA_CHOKE_MAX_P" = xyes; then :
+  ac_have_decl=1
+else
+  ac_have_decl=0
+fi
+
+cat >>confdefs.h <<_ACEOF
+#define HAVE_DECL_TCA_CHOKE_MAX_P $ac_have_decl
+_ACEOF
 ac_fn_c_check_decl "$LINENO" "TCA_NETEM_LOSS" "ac_cv_have_decl_TCA_NETEM_LOSS" "#ifdef HAVE_LINUX_TYPES_H
 # include <linux/types.h>
 #endif

@@ -190,6 +190,10 @@
    you don't. */
 #undef HAVE_DECL_TCA_CGROUP_UNSPEC
 
+/* Define to 1 if you have the declaration of `TCA_CHOKE_MAX_P', and to 0 if
+   you don't. */
+#undef HAVE_DECL_TCA_CHOKE_MAX_P
+
 /* Define to 1 if you have the declaration of `TCA_CHOKE_UNSPEC', and to 0 if
    you don't. */
 #undef HAVE_DECL_TCA_CHOKE_UNSPEC

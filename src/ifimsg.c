@@ -269,8 +269,10 @@ void print_iflist(int num)
             strlen(e->name_master) ? e->name_master : "none" , e->index_master);
         fprintf(iflist, "%s[%d]: bridge-attached %s\n",
             e->name, e->index, e->br_attached ? "yes" : "no");
+#if HAVE_DECL_IFLA_BRPORT_UNSPEC
         fprintf(iflist, "%s[%d]: bridge-port-state %s\n",
             e->name, e->index, conv_br_state(e->br_state, 0));
+#endif
     }
 
     fclose(iflist);
