@@ -457,8 +457,8 @@ void debug_nda_cacheinfo(int lev, struct rtattr *nda, const char *name)
 
     ndac = (struct nda_cacheinfo *)RTA_DATA(nda);
 
-    rec_dbg(lev, "NDA_CACHEINFO(%hu):",
-        RTA_ALIGN(nda->rta_len));
+    rec_dbg(lev, "%s(%hu):",
+        name, RTA_ALIGN(nda->rta_len));
     rec_dbg(lev, "    [ nda_cacheinfo(%d) ]",
         sizeof(struct nda_cacheinfo));
     rec_dbg(lev, "        ndm_confirmed(%d): %u",

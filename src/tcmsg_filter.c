@@ -958,7 +958,7 @@ const char *conv_eth_p(unsigned short proto, unsigned char debug)
     _ETH_P(CAIF, caif)
 #endif
 #undef _ETH_P
-    return((const char *)(debug ? "UKNOWN" : "unknown"));
+    return((const char *)(debug ? "UNKNOWN" : "unknown"));
 }
 
 /*

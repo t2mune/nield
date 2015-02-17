@@ -69,7 +69,7 @@ int parse_ifla_brport(struct rtattr *ifla, struct iflist_entry *ifle)
 {
     struct rtattr *brp[__IFLA_BRPORT_MAX];
 
-	parse_nested_rtattr(brp, IFLA_BRPORT_MAX, ifla);
+    parse_nested_rtattr(brp, IFLA_BRPORT_MAX, ifla);
 
     if(brp[IFLA_BRPORT_STATE])
         parse_ifla_brport_state(brp[IFLA_BRPORT_STATE], ifle);

@@ -291,7 +291,7 @@ void debug_tc_cbq_xstats(int lev, struct rtattr *tca, const char *name)
 
     xstats = (struct tc_cbq_xstats *)RTA_DATA(tca);
 
-    rec_dbg(lev, "%s(%hu):", RTA_ALIGN(tca->rta_len));
+    rec_dbg(lev, "%s(%hu):", name, RTA_ALIGN(tca->rta_len));
     rec_dbg(lev, "    [ tc_cbq_xstats(%d) ]", sizeof(*xstats));
     rec_dbg(lev, "        borrows(%d): %u", sizeof(xstats->borrows), xstats->borrows);
     rec_dbg(lev, "        overactions(%d): %u", sizeof(xstats->overactions), xstats->overactions);

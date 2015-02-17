@@ -554,7 +554,7 @@ void debug_tca_rate(int lev, struct rtattr *tca, const char *name)
 
     rate = (struct tc_estimator *)RTA_DATA(tca);
 
-    rec_dbg(lev, "TCA_RATE(%hu):", RTA_ALIGN(tca->rta_len));
+    rec_dbg(lev, "%s(%hu):", name, RTA_ALIGN(tca->rta_len));
     rec_dbg(lev, "    [ tc_estimator(%d) ]", sizeof(*rate));
     rec_dbg(lev, "        interval(%d): %d", sizeof(rate->interval), rate->interval);
     rec_dbg(lev, "        ewma_log(%d): %d", sizeof(rate->ewma_log), rate->ewma_log);
@@ -565,7 +565,7 @@ void debug_tca_rate(int lev, struct rtattr *tca, const char *name)
  */
 void debug_tca_stats2(int lev, struct rtattr *tca, const char *name)
 {
-    rec_dbg(lev, "%s(%hu):", RTA_ALIGN(tca->rta_len));
+    rec_dbg(lev, "%s(%hu):", name, RTA_ALIGN(tca->rta_len));
 
     debug_tca_stats2_attr(lev, tca);
 }
@@ -608,7 +608,7 @@ void debug_tca_stats_basic(int lev, struct rtattr *stats2, const char *name)
 
     basic = (struct gnet_stats_basic *)RTA_DATA(stats2);
 
-    rec_dbg(lev, "%s(%hu):", RTA_ALIGN(stats2->rta_len));
+    rec_dbg(lev, "%s(%hu):", name, RTA_ALIGN(stats2->rta_len));
     rec_dbg(lev, "    [ gnet_stats_basic(%d) ]", sizeof(*basic));
     rec_dbg(lev, "        bytes(%d): %lu", sizeof(basic->bytes), basic->bytes);
     rec_dbg(lev, "        packets(%d): %u", sizeof(basic->packets), basic->packets);
@@ -665,7 +665,7 @@ void debug_tca_stats_app(int lev, struct rtattr *stats2, const char *name)
 
     est = (struct gnet_estimator *)RTA_DATA(stats2);
 
-    rec_dbg(lev, "TCA_STATS_APP(%hu):", RTA_ALIGN(stats2->rta_len));
+    rec_dbg(lev, "%s(%hu):", name, RTA_ALIGN(stats2->rta_len));
     rec_dbg(lev, "    [ gnet_estimator(%d) ]", sizeof(*est));
     rec_dbg(lev, "        interval(%d): %d", sizeof(est->interval), est->interval);
     rec_dbg(lev, "        ewma_log(%d): %d", sizeof(est->ewma_log), est->ewma_log);
@@ -679,7 +679,7 @@ void debug_tca_stab(int lev, struct rtattr *tca, const char *name)
 {
     struct rtattr *stab[__TCA_STAB_MAX];
 
-    rec_dbg(lev, "%s(%hu):", RTA_ALIGN(tca->rta_len));
+    rec_dbg(lev, "%s(%hu):", name, RTA_ALIGN(tca->rta_len));
 
     parse_nested_rtattr(stab, TCA_STAB_MAX, tca);
 

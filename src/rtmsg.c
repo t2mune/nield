@@ -438,7 +438,7 @@ void debug_rta_cacheinfo(int lev, struct rtattr *rta, const char *name)
 
     rtac = (struct rta_cacheinfo *)RTA_DATA(rta);
 
-    rec_dbg(lev, "RTA_CACHEINFO(%hu):", RTA_ALIGN(rta->rta_len));
+    rec_dbg(lev, "%s(%hu):", name, RTA_ALIGN(rta->rta_len));
     rec_dbg(lev, "    [ rta_cacheinfo(%d) ]", sizeof(*rtac));
     rec_dbg(lev, "        rta_clntref(%d): %u",
         sizeof(rtac->rta_clntref), rtac->rta_clntref);

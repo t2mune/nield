@@ -1,3 +1,6 @@
+2015-02-18  Tetsumune KISO  <t2mune@gmail.com>
+	* Bug fix - too few arguments in function 'rec_dbg'.
+
 2015-01-04  Tetsumune KISO  <t2mune@gmail.com>
 	* Bug fix - undefined reference to `conv_br_state'.
 	* Bug fix - ¡ÆTCA_CHOKE_MAX_P¡Ç undeclared.
