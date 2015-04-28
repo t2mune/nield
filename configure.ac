@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.65])
-AC_INIT(nield, 0.6.0, [t2mune@gmail.com])
+AC_INIT(nield, 0.6.1, [t2mune@gmail.com])
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([foreign])
 
