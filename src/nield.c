@@ -751,10 +751,12 @@ int recv_events(int sock)
         /* receive event */
         len = recvmsg(sock, &msg, 0);
         if(len < 0) {
-            if(errno == EINTR || errno == EAGAIN)
+            rec_log("error: %s: recvmsg(): %s", __func__, strerror(errno));
+
+            if(errno == EINTR || errno == EAGAIN ||
+                errno == ENOBUFS || errno == ENOMEM)
                 continue;
 
-            rec_log("error: %s: recvmsg(): %s", __func__, strerror(errno));
             return(1);
         } else if(!len) {
             rec_log("error: %s: recvmsg(): receive EOF", __func__);

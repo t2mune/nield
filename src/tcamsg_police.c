@@ -161,5 +161,5 @@ const char *conv_tc_police_action(unsigned action, unsigned char debug)
     _TC_POLICE_ACTION(SHOT, drop);
     _TC_POLICE_ACTION(PIPE, pipe);
 #undef _TC_POLICE_ACTION
-    return(debug ? "UNKNOWN" : "unkonown");
+    return(debug ? "UNKNOWN" : "unknown");
 }

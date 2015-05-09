@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.65])
-AC_INIT(nield, 0.6.1, [t2mune@gmail.com])
+AC_INIT(nield, 0.6.2, [t2mune@gmail.com])
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([foreign])
 
@@ -90,6 +90,7 @@ AC_CHECK_HEADERS([sys/syslog.h])
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_INLINE
 AC_TYPE_PID_T
+AC_TYPE_SIZE_T
 
 AC_CHECK_DECLS(
 [IFLA_LINKINFO,
