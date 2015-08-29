@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
 
     /* open netlink socket to create list */
     groups = 0;
-    sock = open_netlink_socket(groups);
+    sock = open_netlink_socket(groups, NETLINK_ROUTE);
     if(sock < 0)
         close_exit(sock, 1, ret);
 
@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
 
     /* set rtnetlink multicast groups */
     groups = set_rtnetlink_groups();
-    sock = open_netlink_socket(groups);
+    sock = open_netlink_socket(groups, NETLINK_ROUTE);
     if(sock < 0)
         close_exit(sock, 1, ret);
 
@@ -247,6 +247,8 @@ int set_options(int argc, char *argv[])
             case 't':
                 msg_opts |= M_TC;
                 break;
+            case 'x':
+                msg_opts |= M_XFRM;
             default:
                 return(-1);
         }
@@ -553,14 +555,14 @@ int set_rtnetlink_groups(void)
 /*
  * open a rtnetlink socket
  */
-int open_netlink_socket(unsigned groups)
+int open_netlink_socket(unsigned groups, int proto)
 {
     int sock, err;
     int len = sizeof(rcv_buflen);
     struct sockaddr_nl nla;
 
     /* open netlink socket */
-    sock = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
+    sock = socket(AF_NETLINK, SOCK_RAW, proto);
     if(sock < 0) {
         rec_log("error: %s: socket(): %s", __func__, strerror(errno));
         exit(1);

@@ -89,23 +89,6 @@ int parse_tca_options_flow(char *msg, char **mp, struct rtattr *tca)
 }
 
 /*
- * parse attribute TCA_FLOW_BASECLASS
- */
-int parse_tca_baseclass(char *msg, char **mp, struct rtattr *flow)
-{
-    char classid[MAX_STR_SIZE] = "";
-
-    if(RTA_PAYLOAD(flow) < sizeof(unsigned)) {
-        rec_log("error: %s: payload too short", __func__);
-        return(1);
-    }
-    parse_tca_classid(classid, sizeof(classid), *(unsigned *)RTA_DATA(flow));
-    *mp = add_log(msg, *mp, "baseclass=%s ", classid);
-
-    return(0);
-}
-
-/*
  * parse attribute TCA_FLOW_KEYS
  */
 int parse_tca_flow_keys(char *msg, char **mp, struct rtattr *flow)
@@ -307,7 +290,7 @@ const char *conv_flow_key(unsigned flags, unsigned char debug)
     if(!strlen(list))
         strncpy(list, debug ? "UNKNOWN" : "unknown", len);
 
-    return;
+    return((const char *)list);
 }
 
 /*

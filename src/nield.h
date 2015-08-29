@@ -116,6 +116,7 @@
 #define M_ROUTE   0x0020
 #define M_RULE    0x0040
 #define M_TC      0x0080
+#define M_XFRM    0x0100
 
 /* interface message type flag */
 #define IF_ADD    0x0001
@@ -170,7 +171,7 @@ void sigint_handler(int sig);
 void sigusr1_handler(int sig);
 void sigusr2_handler(int sig);
 int set_rtnetlink_groups(void);
-int open_netlink_socket(unsigned groups);
+int open_netlink_socket(unsigned groups, int proto);
 int send_request(int sock, int type, int family);
 int recv_reply(int sock, int type);
 int recv_events(int sock);
@@ -317,6 +318,7 @@ const char *conv_macvlan_mode(unsigned mode, unsigned char debug);
 /* ifimsg_vxlan.c */
 #if HAVE_DECL_IFLA_VXLAN_UNSPEC
 int parse_ifla_vxlan(char *msg, char **mp, struct rtattr *info, struct iflist_entry *ifle);
+int parse_ifla_vxlan_id(char *msg, char **mp, struct rtattr *vxlan, struct iflist_entry *ifle);
 int parse_ifla_vxlan_link(char *msg, char **mp, struct rtattr *vxlan, struct iflist_entry *ifle);
 int parse_ifla_vxlan_local(char *msg, char **mp, struct rtattr *vxlan, struct iflist_entry *ifle, unsigned short family);
 int parse_ifla_vxlan_port_range(char *msg, char **mp, struct rtattr *vxlan, struct iflist_entry *ifle);
