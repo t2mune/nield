@@ -1,3 +1,6 @@
+2015-10-03  Tetsumune KISO  <t2mune@gmail.com>
+	* Update - added xfrm socket.
+
 2015-08-29  Tetsumune KISO  <t2mune@gmail.com>
 	* Fix - deleted the unreferred function "parse_tca_baseclass".
 	* Fix - fixed some compiler warnings.

@@ -155,7 +155,7 @@ extern unsigned int if_nametoindex (const char *__ifname);
 extern char *if_indextoname (unsigned int __ifindex, char *__ifname);
 
 /* nield.c */
-void close_exit(int sock, int log_flag, int ret);
+void close_exit(int rt_sock, int xfrm_sock, int log_flag, int ret);
 int set_options(int argc, char *argv[]);
 int get_log_opts(void);
 int get_msg_opts(void);
