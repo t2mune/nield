@@ -1,0 +1,39 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          nield
+# Required-Start:    $syslog $remote_fs
+# Required-Stop:     $syslog $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 6
+# Short-Description: Network Interface Events Logging Daemon
+### END INIT INFO
+
+CMD="/usr/sbin/nield"
+#OPTIONS="-d /var/log/nield.dbg"
+
+[ -f /lib/lsb/init-functions ] || exit 1
+. /lib/lsb/init-functions
+
+[ -x ${CMD} ] || exit 1
+
+case "$1" in
+	start)
+		log_begin_msg "Starting Network Interface Events Logging Daemon"
+		start-stop-daemon --start --exec ${CMD} -- ${OPTIONS}
+		log_end_msg 0
+		;;
+	stop)
+		log_begin_msg "Stopping Network Interface Events Logging Daemon"
+		start-stop-daemon --stop --exec ${CMD}
+		log_end_msg 0
+		;;
+	restart)
+		log_begin_msg "Restarting Network Interface Events Logging Daemon"
+		start-stop-daemon --stop --exec ${CMD} -- ${OPTIONS}
+		start-stop-daemon --start --exec ${CMD}
+		log_end_msg 0
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac
