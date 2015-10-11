@@ -39,6 +39,7 @@
 #include <fcntl.h>
 #include <sys/time.h>
 #include <sys/syslog.h>
+#include <sys/epoll.h>
 #include <arpa/inet.h>
 #include <netinet/in.h> /* INET_ADDRSTRLEN, INET6_ADDRSTRLEN */
 #include <sys/types.h>
@@ -87,7 +88,11 @@
 #include <linux/tc_ematch/tc_em_text.h>
 #endif
 
+#include <linux/xfrm.h>
+
 #include "list.h"
+#include "rtnetlink.h"
+#include "xfrm.h"
 
 /* default value */
 #define NIELD_USAGE          "[-vh46inar] [-p lock_file] [-l log_file] [-s buffer_size] [-L syslog_facility] [-d debug_file]"
@@ -97,6 +102,7 @@
 #define IFLIST_FILE          "/tmp/nield.iflist"
 #define IFHIST_FILE          "/tmp/nield.ifhist"
 #define NDLIST_FILE          "/tmp/nield.ndlist"
+#define MAX_EVENTS           10
 #define MAX_STR_SIZE         128
 #define MAX_MSG_SIZE         2048
 #define MODULE_NAME_LEN      (64 - sizeof(unsigned long))
@@ -155,7 +161,7 @@ extern unsigned int if_nametoindex (const char *__ifname);
 extern char *if_indextoname (unsigned int __ifindex, char *__ifname);
 
 /* nield.c */
-void close_exit(int sock, int log_flag, int ret);
+void close_exit(int rt_sock, int xfrm_sock, int log_flag, int ret);
 int set_options(int argc, char *argv[]);
 int get_log_opts(void);
 int get_msg_opts(void);
@@ -170,12 +176,15 @@ void sigterm_handler(int sig);
 void sigint_handler(int sig);
 void sigusr1_handler(int sig);
 void sigusr2_handler(int sig);
-int set_rtnetlink_groups(void);
+int set_rt_groups(void);
+int set_xfrm_groups(void);
 int open_netlink_socket(unsigned groups, int proto);
 int send_request(int sock, int type, int family);
 int recv_reply(int sock, int type);
-int recv_events(int sock);
-int parse_events(struct msghdr *mhdr);
+void get_recv_buf_len(int sock);
+int recv_events(int rt_sock, int xfrm_sock);
+int parse_rt_events(struct msghdr *mhdr);
+int parse_xfrm_events(struct msghdr *mhdr);
 
 /* log.c */
 int open_log(char *filename);

@@ -18,7 +18,6 @@
  */
 #define SYSLOG_NAMES
 #include "nield.h"
-#include "rtnetlink.h"
 
 static int log_opts;
 static int facility;
@@ -36,97 +35,102 @@ volatile int sigint_received = 0;
  */
 int main(int argc, char *argv[])
 {
-    int sock = -1, ret;
-    unsigned groups; 
+    int rt_sock = -1, xfrm_sock = -1, ret;
+    unsigned rt_groups, xfrm_groups;
 
     /* set option */
     ret = set_options(argc, argv);
     if(ret < 0)
-        close_exit(sock, 0, ret);
+        close_exit(rt_sock, xfrm_sock, 0, ret);
 
     /* open log file */
     ret = open_log(log_file);
     if(ret < 0)
-        close_exit(sock, 0, ret);
+        close_exit(rt_sock, xfrm_sock, 0, ret);
 
     /* open debug file */
     if(log_opts & L_DEBUG) {
         ret = open_dbg(dbg_file);
         if(ret < 0)
-            close_exit(sock, 0, ret);
+            close_exit(rt_sock, xfrm_sock, 0, ret);
     }
 
     /* create lock file */
     ret = open_lock();
     if(ret < 0)
-        close_exit(sock, 0, ret);
+        close_exit(rt_sock, xfrm_sock, 0, ret);
 
     /* set signal handlers */
     ret = set_signal_handlers();
     if(ret < 0)
-        close_exit(sock, 0, ret);
+        close_exit(rt_sock, xfrm_sock, 0, ret);
 
     /* initizlize daemon */
     ret = init_daemon();
     if(ret < 0)
-        close_exit(sock, 0, ret);
+        close_exit(rt_sock, xfrm_sock, 0, ret);
 
     rec_log("info: nield %s started(PID: %ld)", VERSION, (long)getpid());
 
     /* write pid to lock file */
     ret = write_lock();
     if(ret < 0)
-        close_exit(sock, 0, ret);
+        close_exit(rt_sock, xfrm_sock, 0, ret);
 
     /* open netlink socket to create list */
-    groups = 0;
-    sock = open_netlink_socket(groups, NETLINK_ROUTE);
-    if(sock < 0)
-        close_exit(sock, 1, ret);
+    rt_groups = 0;
+    rt_sock = open_netlink_socket(rt_groups, NETLINK_ROUTE);
+    if(rt_sock < 0)
+        close_exit(rt_sock, xfrm_sock, 1, ret);
 
     /* request interface list */
-    ret = send_request(sock, RTM_GETLINK, AF_UNSPEC);
+    ret = send_request(rt_sock, RTM_GETLINK, AF_UNSPEC);
     if(ret < 0)
-        close_exit(sock, 1, ret);
+        close_exit(rt_sock, xfrm_sock, 1, ret);
 
     /* receive interface list */
-    ret = recv_reply(sock, RTM_GETLINK);
+    ret = recv_reply(rt_sock, RTM_GETLINK);
     if(ret != 0)
-        close_exit(sock, 1, ret);
+        close_exit(rt_sock, xfrm_sock, 1, ret);
 
     /* request bridge interface list */
-    ret = send_request(sock, RTM_GETLINK, AF_BRIDGE);
+    ret = send_request(rt_sock, RTM_GETLINK, AF_BRIDGE);
     if(ret < 0)
-        close_exit(sock, 1, ret);
+        close_exit(rt_sock, xfrm_sock, 1, ret);
 
     /* receive bridge interface list */
-    ret = recv_reply(sock, RTM_GETLINK);
+    ret = recv_reply(rt_sock, RTM_GETLINK);
     if(ret != 0)
-        close_exit(sock, 1, ret);
+        close_exit(rt_sock, xfrm_sock, 1, ret);
 
     /* request neighbor cache list */
-    ret = send_request(sock, RTM_GETNEIGH, AF_UNSPEC);
+    ret = send_request(rt_sock, RTM_GETNEIGH, AF_UNSPEC);
     if(ret < 0)
-        close_exit(sock, 1, ret);
+        close_exit(rt_sock, xfrm_sock, 1, ret);
 
     /* receive & create interface list */
-    ret = recv_reply(sock, RTM_GETNEIGH);
+    ret = recv_reply(rt_sock, RTM_GETNEIGH);
     if(ret != 0)
-        close_exit(sock, 1, ret);
+        close_exit(rt_sock, xfrm_sock, 1, ret);
 
     /* close socket */
-    close(sock);
+    close(rt_sock);
 
     /* set rtnetlink multicast groups */
-    groups = set_rtnetlink_groups();
-    sock = open_netlink_socket(groups, NETLINK_ROUTE);
-    if(sock < 0)
-        close_exit(sock, 1, ret);
+    rt_groups = set_rt_groups();
+    rt_sock = open_netlink_socket(rt_groups, NETLINK_ROUTE);
+    if(rt_sock < 0)
+        close_exit(rt_sock, xfrm_sock, 1, ret);
+
+    xfrm_groups = set_xfrm_groups();
+    xfrm_sock = open_netlink_socket(xfrm_groups, NETLINK_XFRM);
+    if(xfrm_sock < 0)
+        close_exit(xfrm_sock, xfrm_sock, 1, ret);
 
     /* recevie events */
-    ret = recv_events(sock);
+    ret = recv_events(rt_sock, xfrm_sock);
 
-    close_exit(sock, 1, ret);
+    close_exit(rt_sock, xfrm_sock, 1, ret);
 
     return(0);
 }
@@ -134,11 +138,14 @@ int main(int argc, char *argv[])
 /*
  * close a rtnetlink socket and a debug file, and then exit
  */
-void close_exit(int sock, int log_flag, int ret)
+void close_exit(int rt_sock, int xfrm_sock, int log_flag, int ret)
 {
     /* close file descriptor */
-    if(sock > 0)
-        close(sock);
+    if(rt_sock > 0)
+        close(rt_sock);
+
+    if(xfrm_sock > 0)
+        close(xfrm_sock);
 
     /* close debug file */
     if(log_opts & L_DEBUG)
@@ -168,7 +175,7 @@ int set_options(int argc, char *argv[])
     strcpy(dbg_file, DEBUG_FILE_DEFAULT);
 
     /* parse options */
-    while((opt = getopt(argc, argv, "vhp:l:s:L:d:46inarft")) != EOF) {
+    while((opt = getopt(argc, argv, "vhp:l:s:L:d:46inarftx")) != EOF) {
         switch(opt) {
             case 'v':
                 fprintf(stderr, "version: %s\n", VERSION);
@@ -496,7 +503,7 @@ void sigusr2_handler(int sig)
     print_ndlist();
 }
 
-int set_rtnetlink_groups(void)
+int set_rt_groups(void)
 {
     int groups;
 
@@ -528,36 +535,49 @@ int set_rtnetlink_groups(void)
         if(msg_opts & M_IPV6)
             groups |= (1 << (RTNLGRP_IPV6_RULE - 1));
         if(!(msg_opts & (M_IPV4 | M_IPV6)))
-            groups |= RTMGRP_IPV4_ROUTE | (1 << (RTNLGRP_IPV6_RULE - 1));
+            groups |= RTMGRP_IPV4_ROUTE | RTMGRP_IPV6_RULE;
     }
     if(msg_opts & M_TC)
         groups |= RTMGRP_TC;
+
     if(!(msg_opts & (M_LINK | M_NEIGH | M_IFADDR | M_ROUTE | M_RULE | M_TC))) {
         if(msg_opts & M_IPV4)
             groups |= RTMGRP_LINK | RTMGRP_NEIGH |
-                      RTMGRP_IPV4_IFADDR | RTMGRP_IPV4_ROUTE | RTMGRP_IPV4_RULE |
-                      RTMGRP_TC;
+                RTMGRP_IPV4_IFADDR | RTMGRP_IPV4_ROUTE | RTMGRP_IPV4_RULE |
+                RTMGRP_TC;
         if(msg_opts & M_IPV6)
             groups |= RTMGRP_LINK | RTMGRP_NEIGH |
-                      RTMGRP_IPV6_IFADDR | RTMGRP_IPV6_ROUTE | (1 << (RTNLGRP_IPV6_RULE - 1)) |
-                      RTMGRP_TC;
+                RTMGRP_IPV6_IFADDR | RTMGRP_IPV6_ROUTE | RTMGRP_IPV6_RULE |
+                RTMGRP_TC;
         /* receive all events if the flag is set to only L_DEBUG or none */
         if(!(msg_opts & (M_IPV4 | M_IPV6)))
             groups |= RTMGRP_LINK | RTMGRP_NEIGH | 
-                      RTMGRP_IPV4_IFADDR | RTMGRP_IPV4_ROUTE | RTMGRP_IPV4_RULE |
-                      RTMGRP_IPV6_IFADDR | RTMGRP_IPV6_ROUTE | (1 << (RTNLGRP_IPV6_RULE - 1)) |
-                      RTMGRP_TC;
+                RTMGRP_IPV4_IFADDR | RTMGRP_IPV4_ROUTE | RTMGRP_IPV4_RULE |
+                RTMGRP_IPV6_IFADDR | RTMGRP_IPV6_ROUTE | RTMGRP_IPV6_RULE |
+                RTMGRP_TC;
     }
 
     return(groups);
 }
 
+int set_xfrm_groups(void)
+{
+    int groups = 0;
+
+    /* set netlink groups flag to receive events */
+    if((msg_opts & M_XFRM) || !msg_opts)
+        groups |= XFRMGRP_ACQUIRE | XFRMGRP_EXPIRE | XFRMGRP_SA |
+            XFRMGRP_POLICY | XFRMGRP_AEVENTS | XFRMGRP_REPORT |
+            XFRMGRP_MIGRATE | XFRMGRP_MAPPING;
+
+    return(groups);
+}
 /*
  * open a rtnetlink socket
  */
 int open_netlink_socket(unsigned groups, int proto)
 {
-    int sock, err;
+    int sock, ret;
     int len = sizeof(rcv_buflen);
     struct sockaddr_nl nla;
 
@@ -579,8 +599,8 @@ int open_netlink_socket(unsigned groups, int proto)
 
     /* set receive buffer size */
     if(rcv_buflen) {
-        err = setsockopt(sock, SOL_SOCKET, SO_RCVBUF, &rcv_buflen, len);
-        if(err < 0) {
+        ret = setsockopt(sock, SOL_SOCKET, SO_RCVBUF, &rcv_buflen, len);
+        if(ret < 0) {
             rec_log("error: %s: setsockopt(): %s", __func__, strerror(errno));
             exit(1);
         }
@@ -707,24 +727,37 @@ int recv_reply(int sock, int type)
 }
 
 /*
+ * logging receive buffer size of socket
+ */
+void get_recv_buf_len(int sock) {
+    int res, buflen;
+    int len = sizeof(buflen);
+
+    res = getsockopt(sock, SOL_SOCKET, SO_RCVBUF, &buflen, (socklen_t *)&len);
+    if(res < 0) {
+        rec_log("error: %s: getsockopt(): %s", __func__, strerror(errno));
+        exit(1);
+    }
+    rec_log("info: socket %d receive buffer size: %d byte", sock, buflen);
+
+    return;
+}
+
+/*
  * receive notifications from kernel through rtnetlink socket
  */
-int recv_events(int sock)
+int recv_events(int rt_sock, int xfrm_sock)
 {
     struct msghdr msg;
     struct iovec iov;
     struct sockaddr_nl nla;
     char buf[8192];
-    int err, buflen;
-    int len = sizeof(buflen);
+    int epollfd, nfds, len, n, res;
+    struct epoll_event ev, events[MAX_EVENTS];
 
     /* logging a receive buffer size */
-    err = getsockopt(sock, SOL_SOCKET, SO_RCVBUF, &buflen, (socklen_t *)&len);
-    if(err < 0) {
-        rec_log("error: %s: getsockopt(): %s", __func__, strerror(errno));
-        exit(1);
-    }
-    rec_log("info: socket receive buffer size: %d byte", buflen);
+    get_recv_buf_len(rt_sock);
+    get_recv_buf_len(xfrm_sock);
 
     /* initialization */
     memset(&msg, 0, sizeof(msg));
@@ -741,50 +774,84 @@ int recv_events(int sock)
     msg.msg_iov = &iov;
     msg.msg_iovlen = 1;
 
-    /* loop of receive event */
-    while(1) {
+    /* set up epoll */
+    epollfd = epoll_create1(0);
+    if (epollfd == -1) {
+        rec_log("error: epoll_create1()");
+        exit(1);
+    }
+
+    /* added sockets */
+    ev.events = EPOLLIN;
+    ev.data.fd = rt_sock;
+    if (epoll_ctl(epollfd, EPOLL_CTL_ADD, rt_sock, &ev) == -1) {
+        rec_log("error: epoll_ctl(): sock %d", rt_sock);
+        return(1);
+    }
+
+    ev.events = EPOLLIN;
+    ev.data.fd = xfrm_sock;
+    if (epoll_ctl(epollfd, EPOLL_CTL_ADD, xfrm_sock, &ev) == -1) {
+        rec_log("error: epoll_ctl(): sock %d", xfrm_sock);
+        return(1);
+    }
+
+    /* loop for receiving events */
+    for(;;) {
         /* detect signal received */
         if(sigterm_received || sigint_received)
             break;
 
-        /* clear buffer */
-        memset(buf, 0, sizeof(buf));
+        /* wait for events */
+        nfds = epoll_wait(epollfd, events, MAX_EVENTS, -1);
+        if (nfds == -1) {
+            rec_log("error: epoll_wait()");
+            return(1);
+        }
 
-        /* receive event */
-        len = recvmsg(sock, &msg, 0);
-        if(len < 0) {
-            rec_log("error: %s: recvmsg(): %s", __func__, strerror(errno));
+        for (n = 0; n < nfds; ++n) {
+            /* clear buffer */
+            memset(buf, 0, sizeof(buf));
 
-            if(errno == EINTR || errno == EAGAIN ||
-                errno == ENOBUFS || errno == ENOMEM)
+            /* receive events */
+            len = recvmsg(events[n].data.fd, &msg, 0);
+            if(len < 0) {
+                rec_log("error: %s: recvmsg(): %s", __func__, strerror(errno));
+
+                if(errno == EINTR || errno == EAGAIN ||
+                    errno == ENOBUFS || errno == ENOMEM)
+                    continue;
+
+                return(1);
+            } else if(!len) {
+                rec_log("error: %s: recvmsg(): receive EOF", __func__);
+                return(1);
+            }
+
+            /* verify whether a message originates from kernel */
+            if(nla.nl_pid) {
+                rec_log("error: %s: received a message from invalid sender(%d)",
+                    __func__, nla.nl_pid);
                 continue;
+            }
 
-            return(1);
-        } else if(!len) {
-            rec_log("error: %s: recvmsg(): receive EOF", __func__);
-            return(1);
+            /* parse messages */
+            if (events[n].data.fd == rt_sock)
+                res = parse_rt_events(&msg);
+            else if (events[n].data.fd == xfrm_sock)
+                res = parse_xfrm_events(&msg);
+            if(res < 0)
+                return(1);
         }
-
-        /* verify whether a message originates from kernel */
-        if(nla.nl_pid) {
-            rec_log("error: %s: received a message from invalid sender(%d)",
-                __func__, nla.nl_pid);
-            continue;
-        }
-
-        /* parse messages */
-        err = parse_events(&msg);
-        if(err < 0)
-            break;
     }
 
     return(0);
 }
 
 /*
- * parse messages in received notifications from kernel
+ * parse route events
  */
-int parse_events(struct msghdr *mhdr)
+int parse_rt_events(struct msghdr *mhdr)
 {
     struct nlmsghdr *nlh;
     struct nlmsgerr *nle;
@@ -849,6 +916,41 @@ int parse_events(struct msghdr *mhdr)
             default:
                 rec_log("error: %s: unknown nlsmg_type: %d",
                     __func__, (int)nlh->nlmsg_type);
+        }
+    }
+
+    return(0);
+}
+
+/*
+ * parse xfrm events
+ */
+int parse_xfrm_events(struct msghdr *mhdr) {
+    struct nlmsghdr *nlh;
+    struct nlmsgerr *nle;
+    int nlh_len;
+
+    /* get netlink message header */
+    nlh = mhdr->msg_iov->iov_base;
+    nlh_len = mhdr->msg_iov->iov_len;
+
+    /* parse netlink message type */
+    for( ; NLMSG_OK(nlh, nlh_len); nlh = NLMSG_NEXT(nlh, nlh_len)) {
+        switch(nlh->nlmsg_type) {
+            /* ipsec sa message */
+            case XFRM_MSG_NEWSA:
+                rec_log("info: ipsec new sa");
+                break;
+            case XFRM_MSG_DELSA:
+                rec_log("info: ipsec del sa");
+                break;
+            /* ipsec policy message */
+            case XFRM_MSG_NEWPOLICY:
+                rec_log("info: ipsec new policy");
+                break;
+            case XFRM_MSG_DELPOLICY:
+                rec_log("info: ipsec del policy");
+                break;
         }
     }
 
