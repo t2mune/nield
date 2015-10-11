@@ -36,101 +36,97 @@ volatile int sigint_received = 0;
  */
 int main(int argc, char *argv[])
 {
-    int rt_sock = -1, xfrm_sock = -1, ret;
-    unsigned rt_groups, xfrm_groups;
+    int sock = -1, ret;
+    unsigned groups; 
 
     /* set option */
     ret = set_options(argc, argv);
     if(ret < 0)
-        close_exit(rt_sock, xfrm_sock, 0, ret);
+        close_exit(sock, 0, ret);
 
     /* open log file */
     ret = open_log(log_file);
     if(ret < 0)
-        close_exit(rt_sock, xfrm_sock, 0, ret);
+        close_exit(sock, 0, ret);
 
     /* open debug file */
     if(log_opts & L_DEBUG) {
         ret = open_dbg(dbg_file);
         if(ret < 0)
-            close_exit(rt_sock, xfrm_sock, 0, ret);
+            close_exit(sock, 0, ret);
     }
 
     /* create lock file */
     ret = open_lock();
     if(ret < 0)
-        close_exit(rt_sock, xfrm_sock, 0, ret);
+        close_exit(sock, 0, ret);
 
     /* set signal handlers */
     ret = set_signal_handlers();
     if(ret < 0)
-        close_exit(rt_sock, xfrm_sock, 0, ret);
+        close_exit(sock, 0, ret);
 
     /* initizlize daemon */
     ret = init_daemon();
     if(ret < 0)
-        close_exit(rt_sock, xfrm_sock, 0, ret);
+        close_exit(sock, 0, ret);
 
     rec_log("info: nield %s started(PID: %ld)", VERSION, (long)getpid());
 
     /* write pid to lock file */
     ret = write_lock();
     if(ret < 0)
-        close_exit(rt_sock, xfrm_sock, 0, ret);
+        close_exit(sock, 0, ret);
 
     /* open netlink socket to create list */
-    rt_groups = 0;
-    rt_sock = open_netlink_socket(rt_groups, NETLINK_ROUTE);
-    if(rt_sock < 0)
-        close_exit(rt_sock, xfrm_sock, 1, ret);
+    groups = 0;
+    sock = open_netlink_socket(groups, NETLINK_ROUTE);
+    if(sock < 0)
+        close_exit(sock, 1, ret);
 
     /* request interface list */
-    ret = send_request(rt_sock, RTM_GETLINK, AF_UNSPEC);
+    ret = send_request(sock, RTM_GETLINK, AF_UNSPEC);
     if(ret < 0)
-        close_exit(rt_sock, xfrm_sock, 1, ret);
+        close_exit(sock, 1, ret);
 
     /* receive interface list */
-    ret = recv_reply(rt_sock, RTM_GETLINK);
+    ret = recv_reply(sock, RTM_GETLINK);
     if(ret != 0)
-        close_exit(rt_sock, xfrm_sock, 1, ret);
+        close_exit(sock, 1, ret);
 
     /* request bridge interface list */
-    ret = send_request(rt_sock, RTM_GETLINK, AF_BRIDGE);
+    ret = send_request(sock, RTM_GETLINK, AF_BRIDGE);
     if(ret < 0)
-        close_exit(rt_sock, xfrm_sock, 1, ret);
+        close_exit(sock, 1, ret);
 
     /* receive bridge interface list */
-    ret = recv_reply(rt_sock, RTM_GETLINK);
+    ret = recv_reply(sock, RTM_GETLINK);
     if(ret != 0)
-        close_exit(rt_sock, xfrm_sock, 1, ret);
+        close_exit(sock, 1, ret);
 
     /* request neighbor cache list */
-    ret = send_request(rt_sock, RTM_GETNEIGH, AF_UNSPEC);
+    ret = send_request(sock, RTM_GETNEIGH, AF_UNSPEC);
     if(ret < 0)
-        close_exit(rt_sock, xfrm_sock, 1, ret);
+        close_exit(sock, 1, ret);
 
     /* receive & create interface list */
-    ret = recv_reply(rt_sock, RTM_GETNEIGH);
+    ret = recv_reply(sock, RTM_GETNEIGH);
     if(ret != 0)
-        close_exit(rt_sock, xfrm_sock, 1, ret);
+        close_exit(sock, 1, ret);
 
     /* close socket */
-    close(rt_sock);
+    close(sock);
 
     /* set rtnetlink multicast groups */
-    rt_groups = set_rtnetlink_groups();
-    rt_sock = open_netlink_socket(rt_groups, NETLINK_ROUTE);
-    if(rt_sock < 0)
-        close_exit(rt_sock, xfrm_sock, 1, ret);
-
-    xfrm_sock = open_netlink_socket(xfrm_groups, NETLINK_XFRM);
-    if(xfrm_sock < 0)
-        close_exit(xfrm_sock, xfrm_sock, 1, ret);
+    groups = set_rtnetlink_groups();
+    sock = open_netlink_socket(groups, NETLINK_ROUTE);
+    if(sock < 0)
+        close_exit(sock, 1, ret);
 
     /* recevie events */
-    ret = recv_events(rt_sock);
+    ret = recv_events(sock);
 
-    close_exit(rt_sock, xfrm_sock, 1, ret);
+    close_exit(sock, 1, ret);
 
     return(0);
 }
@@ -138,14 +134,11 @@ int main(int argc, char *argv[])
 /*
  * close a rtnetlink socket and a debug file, and then exit
  */
-void close_exit(int rt_sock, int xfrm_sock, int log_flag, int ret)
+void close_exit(int sock, int log_flag, int ret)
 {
     /* close file descriptor */
-    if(rt_sock > 0)
-        close(rt_sock);
-
-    if(xfrm_sock > 0)
-        close(xfrm_sock);
+    if(sock > 0)
+        close(sock);
 
     /* close debug file */
     if(log_opts & L_DEBUG)
@@ -175,7 +168,7 @@ int set_options(int argc, char *argv[])
     strcpy(dbg_file, DEBUG_FILE_DEFAULT);
 
     /* parse options */
-    while((opt = getopt(argc, argv, "vhp:l:s:L:d:46inarftx")) != EOF) {
+    while((opt = getopt(argc, argv, "vhp:l:s:L:d:46inarft")) != EOF) {
         switch(opt) {
             case 'v':
                 fprintf(stderr, "version: %s\n", VERSION);
@@ -535,7 +528,7 @@ int set_rtnetlink_groups(void)
         if(msg_opts & M_IPV6)
             groups |= (1 << (RTNLGRP_IPV6_RULE - 1));
         if(!(msg_opts & (M_IPV4 | M_IPV6)))
-            groups |= RTMGRP_IPV4_ROUTE | RTMGRP_IPV6_RULE;
+            groups |= RTMGRP_IPV4_ROUTE | (1 << (RTNLGRP_IPV6_RULE - 1));
     }
     if(msg_opts & M_TC)
         groups |= RTMGRP_TC;
@@ -546,13 +539,13 @@ int set_rtnetlink_groups(void)
                       RTMGRP_TC;
         if(msg_opts & M_IPV6)
             groups |= RTMGRP_LINK | RTMGRP_NEIGH |
-                      RTMGRP_IPV6_IFADDR | RTMGRP_IPV6_ROUTE | RTMGRP_IPV6_RULE |
+                      RTMGRP_IPV6_IFADDR | RTMGRP_IPV6_ROUTE | (1 << (RTNLGRP_IPV6_RULE - 1)) |
                       RTMGRP_TC;
         /* receive all events if the flag is set to only L_DEBUG or none */
         if(!(msg_opts & (M_IPV4 | M_IPV6)))
             groups |= RTMGRP_LINK | RTMGRP_NEIGH | 
                       RTMGRP_IPV4_IFADDR | RTMGRP_IPV4_ROUTE | RTMGRP_IPV4_RULE |
-                      RTMGRP_IPV6_IFADDR | RTMGRP_IPV6_ROUTE | RTMGRP_IPV6_RULE |
+                      RTMGRP_IPV6_IFADDR | RTMGRP_IPV6_ROUTE | (1 << (RTNLGRP_IPV6_RULE - 1)) |
                       RTMGRP_TC;
     }
 
@@ -564,7 +557,7 @@ int set_rtnetlink_groups(void)
  */
 int open_netlink_socket(unsigned groups, int proto)
 {
-    int sock, ret;
+    int sock, err;
     int len = sizeof(rcv_buflen);
     struct sockaddr_nl nla;
 
@@ -586,8 +579,8 @@ int open_netlink_socket(unsigned groups, int proto)
 
     /* set receive buffer size */
     if(rcv_buflen) {
-        ret = setsockopt(sock, SOL_SOCKET, SO_RCVBUF, &rcv_buflen, len);
-        if(ret < 0) {
+        err = setsockopt(sock, SOL_SOCKET, SO_RCVBUF, &rcv_buflen, len);
+        if(err < 0) {
             rec_log("error: %s: setsockopt(): %s", __func__, strerror(errno));
             exit(1);
         }

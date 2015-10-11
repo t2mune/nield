@@ -19,62 +19,6 @@
 #ifndef _RTNETLINK_
 #define _RTNETLINK_
 
-#ifndef RTMGRP_LINK
-#define RTMGRP_LINK (1<<(RTNLGRP_LINK-1))
-#endif
-
-#ifndef RTMGRP_NOTIFY
-#define RTMGRP_NOTIFY (1<<(RTNLGRP_NOTIFY-1))
-#endif
-
-#ifndef RTMGRP_NEIGH
-#define RTMGRP_NEIGH (1<<(RTNLGRP_NEIGH-1))
-#endif
-
-#ifndef RTMGRP_TC
-#define RTMGRP_TC (1<<(RTNLGRP_TC-1))
-#endif
-
-#ifndef RTMGRP_IPV4_IFADDR
-#define RTMGRP_IPV4_IFADDR (1<<(RTNLGRP_IPV4_IFADDR-1))
-#endif
-
-#ifndef RTMGRP_IPV4_MROUTE
-#define RTMGRP_IPV4_MROUTE (1<<(RTNLGRP_IPV4_MROUTE-1))
-#endif
-
-#ifndef RTMGRP_IPV4_ROUTE
-#define RTMGRP_IPV4_ROUTE (1<<(RTNLGRP_IPV4_ROUTE-1))
-#endif
-
-#ifndef RTMGRP_IPV4_RULE
-#define RTMGRP_IPV4_RULE (1<<(RTNLGRP_IPV4_RULE-1))
-#endif
-
-#ifndef RTMGRP_IPV6_IFADDR
-#define RTMGRP_IPV6_IFADDR (1<<(RTNLGRP_IPV6_IFADDR-1))
-#endif
-
-#ifndef RTMGRP_IPV6_MROUTE
-#define RTMGRP_IPV6_MROUTE (1<<(RTNLGRP_IPV6_MROUTE-1))
-#endif
-
-#ifndef RTMGRP_IPV6_ROUTE
-#define RTMGRP_IPV6_ROUTE (1<<(RTNLGRP_IPV6_ROUTE-1))
-#endif
-
-#ifndef RTMGRP_IPV6_IFINFO
-#define RTMGRP_IPV6_IFINFO (1<<(RTNLGRP_IPV6_IFINFO-1))
-#endif
-
-#ifndef RTMGRP_IPV6_PREFIX
-#define RTMGRP_IPV6_PREFIX (1<<(RTNLGRP_IPV6_PREFIX-1))
-#endif
-
-#ifndef RTMGRP_IPV6_RULE
-#define RTMGRP_IPV6_RULE (1<<(RTNLGRP_IPV6_RULE-1))
-#endif
-
 /*
  * parse route attributes
  */
