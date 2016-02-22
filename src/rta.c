@@ -346,9 +346,8 @@ int arphrd_ntop(unsigned short type, struct rtattr *ifla, char *dst, int dstlen)
     }
 
     for(i = 0; i < srclen; i++)
-        if(p - dst < dstlen)
-            p += snprintf(p, dstlen - strlen(dst), "%02x%s",
-                src[i], (i + 1 == srclen) ? "" : ":");
+        APPEND_SNPRINTF(rc, p, dstlen, "%02x%s",
+            src[i], (i + 1 == srclen) ? "" : ":");
 
     return(0);
 }

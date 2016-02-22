@@ -732,4 +732,11 @@ void debug_tca_csum_tm(int lev, struct rtattr *csum, const char *name);
 void debug_tca_csum_parms(int lev, struct rtattr *csum, const char *name);
 void conv_tca_csum_update_flags(int flags, char *flags_list, int len, unsigned char debug);
 #endif
+
+#define APPEND_SNPRINTF(RC, P, LEN, ...) do {   \
+    int RC = snprintf(P, LEN, __VA_ARGS__);     \
+    RC = RC < 0 ? 0 : RC >= LEN ? LEN : RC;     \
+    P += RC;                                    \
+    LEN -= RC;                                  \
+} while(0)
 #endif /* _NIELD_ */

@@ -60,14 +60,14 @@ void debug_tca_options_prio(int lev, struct rtattr *tca, const char *name)
 
     for(i = 0; i < TC_PRIO_MAX + 1; i++) {
         if(i == TC_PRIO_MAX)
-            p += snprintf(p, len - strlen(prio), "%d ", qopt->priomap[i]);
+            APPEND_SNPRINTF(rc, p, len, "%d ", qopt->priomap[i]);
         else
-            p += snprintf(p, len - strlen(prio), "%d-", qopt->priomap[i]);
-        if(len < p - prio) {
-            rec_dbg(lev, "%s(%hu): -- priomap too long --",
+            APPEND_SNPRINTF(rc, p, len, "%d-", qopt->priomap[i]);
+    }
+    if (p - prio == sizeof(prio)) {
+        rec_dbg(lev, "%s(%hu): -- priomap too long --",
                 name, RTA_ALIGN(tca->rta_len));
-            return;
-        }
+        return;
     }
 
     rec_dbg(lev, "%s(%hu):", name, RTA_ALIGN(tca->rta_len));
