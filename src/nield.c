@@ -804,8 +804,11 @@ int recv_events(int rt_sock, int xfrm_sock)
 
         /* wait for events */
         nfds = epoll_wait(epollfd, events, MAX_EVENTS, -1);
-        if (nfds == -1) {
+        if (nfds < 0) {
             rec_log("error: epoll_wait()");
+            if(errno == EINTR || errno == EAGAIN ||
+                errno == ENOBUFS || errno == ENOMEM)
+                continue;
             return(1);
         }
 
@@ -939,17 +942,16 @@ int parse_xfrm_events(struct msghdr *mhdr) {
         switch(nlh->nlmsg_type) {
             /* ipsec sa message */
             case XFRM_MSG_NEWSA:
-                rec_log("info: ipsec new sa");
-                break;
             case XFRM_MSG_DELSA:
-                rec_log("info: ipsec del sa");
-                break;
+                //parse_xfrm_sa(nlh);
+                //break;
             /* ipsec policy message */
             case XFRM_MSG_NEWPOLICY:
-                rec_log("info: ipsec new policy");
-                break;
             case XFRM_MSG_DELPOLICY:
-                rec_log("info: ipsec del policy");
+                //parse_xfrm_sa(nlh);
+                //break;
+            default:
+                rec_log("info: ipsec %d", nlh->nlmsg_type);
                 break;
         }
     }
