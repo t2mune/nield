@@ -49,18 +49,24 @@ int open_log(char *filename)
 char *add_log(char *msg, char *mp, char *format, ...)
 {
     va_list ap_msg;
+    int rc;
 
-    if(!mp || mp - msg < 0 || mp - msg > MAX_MSG_SIZE)
+    if(!mp || mp - msg < 0 || mp - msg >= MAX_MSG_SIZE)
         return(NULL);
 
     va_start(ap_msg, format);
-    mp += vsnprintf(mp, MAX_MSG_SIZE - (mp - msg), format, ap_msg);
+    rc = vsnprintf(mp, MAX_MSG_SIZE - (mp - msg), format, ap_msg);
     va_end(ap_msg);
 
-    if(mp - msg > MAX_MSG_SIZE) {
+    if(rc < 0) {
+        rec_log("error: snprintf failed");
+        return(NULL);
+    }
+    if(rc >= MAX_MSG_SIZE - (mp - msg)) {
         rec_log("error: message truncated");
         return(NULL);
     }
+    mp += rc;
 
     return(mp);
 }

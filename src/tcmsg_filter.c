@@ -199,17 +199,17 @@ int parse_tca_mask(char *msg, char **mp, struct rtattr *tca)
 void parse_u32_handle(char *p, int len, unsigned handle)
 {
     if(TC_U32_HTID(handle))
-        p += snprintf(p, len, "%x", TC_U32_HTID(handle)>>20);
+        APPEND_SNPRINTF(rc, p, len, "%x", TC_U32_HTID(handle)>>20);
 
-    p += snprintf(p, len, ":");
+    APPEND_SNPRINTF(rc, p, len, ":");
 
     if(TC_U32_HASH(handle))
-        p += snprintf(p, len, "%x", TC_U32_HASH(handle));
+        APPEND_SNPRINTF(rc, p, len, "%x", TC_U32_HASH(handle));
 
-    p += snprintf(p, len, ":");
+    APPEND_SNPRINTF(rc, p, len, ":");
 
     if(TC_U32_NODE(handle))
-        p += snprintf(p, len, "%x", TC_U32_NODE(handle));
+        APPEND_SNPRINTF(rc, p, len, "%x", TC_U32_NODE(handle));
 }
 
 /*
