@@ -1,6 +1,6 @@
 /*
  * nield.c - evnent receiver
- * Copyright (C) 2015 Tetsumune KISO <t2mune@gmail.com>
+ * Copyright (C) 2011-2016 Tetsumune KISO <t2mune@gmail.com>
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
