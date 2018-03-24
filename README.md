@@ -1,26 +1,26 @@
-##![nield image](img/nield.jpg)
+## ![nield image](img/nield.jpg)
 
 nield  (Network  Interface  Events  Logging  Daemon)  is  a tool to receive notifications from kernel through netlink socket, and generate logs related to interfaces, neighbor cache  (ARP,NDP),  IP  address  (IPv4,IPv6),  routing,  FIB rules, traffic control.
 
-##Requirements
+## Requirements
 linux
 
-##Download
-###git command
+## Download
+### git command
     
     $ git clone https://github.com/t2mune/nield.git
 
-##Install
+## Install
 
     $ ./configure
     $ make
     # make install
 
-##Usage
+## Usage
 
     nield [-vh46inarft] [-p lock_file] [-s buffer_size] [-l log_file] [-L syslog_facility] [-d debug_file]
 
-##Options
+## Options
 
     Standard options:
 
@@ -69,14 +69,14 @@ linux
 
         -t     Logging events related to traffic control.
 
-##Files
+## Files
     /usr/sbin/nield
     /var/run/nield.pid
     /var/log/nield.log
     /usr/share/man/man8/nield.8
 
-##Examples
-###Interface
+## Examples
+### Interface
 When an interface was disabled by command:
 
     [2013-08-07 04:27:31.537101] interface eth0 state changed to disabled
@@ -231,7 +231,7 @@ When link layer address of an entry in the NDP cache table has changed:
 
     [2013-08-07 06:21:57.396102] ndp cache changed: ip=2001:db8::2 mac=00:1b:8b:84:36:dc interface=eth0
 
-###IPv4 Address
+### IPv4 Address
 When an IPv4 address was assigned:
 
     [2013-08-07 04:33:22.150078] ipv4 address added: interface=eth0 ip=192.168.1.1/24 socpe=global
@@ -240,7 +240,7 @@ When an IPv4 address was removed:
 
     [2013-08-07 04:34:04.195166] ipv4 address deleted: interface=eth0 ip=192.168.1.1/24 socpe=global
 
-###IPv6 Address
+### IPv6 Address
 When an IPv6 address was assigned:
 
     [2013-08-07 04:34:23.810337] ipv6 address added: interface=eth0 ip=2001:db8::1/64 socpe=global
@@ -249,7 +249,7 @@ When an IPv6 address was removed:
 
     [2013-08-07 04:35:04.262540] ipv6 address deleted: interface=eth0 ip=2001:db8::1/64 socpe=global
 
-###IPv4 Route
+### IPv4 Route
 
 When an IPv4 route was added:
 
@@ -259,7 +259,7 @@ When an IPv4 route was removed:
 
     [2013-08-07 04:33:46.176411] ipv4 route deleted: destination=172.16.1.0/24 nexthop=192.168.1.2 interface=eth0 type=unicast proto=boot table=main
 
-###IPv6 Route
+### IPv6 Route
 When an IPv6 route was added:
 
     [2013-08-07 04:34:40.235651] ipv6 route added: destination=2001:db8:1::/64 nexthop=2001:db8::2 interface=eth0 metric=1024 type=unicast protocol=boot table=main
@@ -268,7 +268,7 @@ When an IPv6 route was removed:
 
     [2013-08-07 04:34:46.242398] ipv6 route deleted: destination=2001:db8:1::/64 nexthop=2001:db8::2 interface=eth0 metric=1024 type=unicast proto=boot table=main
 
-###IPv4 FIB Rule
+### IPv4 FIB Rule
 When an IPv4 rule was added:
 
     [2013-08-07 04:35:22.281834] ipv4 rule added: from=192.168.1.0/24 table=unknown priority=32765 action=to_tbl
@@ -277,7 +277,7 @@ When an IPv4 rule was deleted:
 
     [2013-08-07 04:35:28.288220] ipv4 rule deleted: from=192.168.1.0/24 table=unknown priority=32765 action=to_tbl
 
-###IPv6 FIB Rule
+### IPv6 FIB Rule
 
 When an IPv6 rule was added:
 
@@ -287,7 +287,7 @@ When an IPv6 rule was deleted:
 
     [2013-08-07 04:35:40.300824] ipv6 rule deleted: from=2001:db8:1::/64 table=unknown priority=16383 action=to_tbl
 
-###Traffic Control
+### Traffic Control
 When a qdisc was added:
 
     [2013-08-07 04:37:46.502234] tc qdisc added: interface=eth0 parent=root classid=1: qdisc=htb rate2quantum=10 default-class=0x12
