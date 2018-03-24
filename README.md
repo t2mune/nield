@@ -189,7 +189,7 @@ When an IPv6 tunnel interface(ip6ip6,ipip6) was deleted:
 
     [2013-08-07 04:33:16.132706] interface deleted: name=ip6tnl0 local=2001:db8:10::1 remote=2001:db8:20::1 mtu=1452 kind=ip6tnl state=disabled,linkdown
 
-###IPv4 ARP
+### IPv4 ARP
 When an ARP cache entry was created:
 
     [2013-08-07 04:33:28.157183] arp cache added: ip=192.168.1.2 mac=00:1b:8b:84:36:dc interface=eth0
@@ -210,7 +210,7 @@ When link layer address of an entry in the ARP cache table has changed:
 
     [2013-08-07 06:17:50.355827] arp cache changed: ip=192.168.1.2 mac=00:1b:8b:84:36:dc interface=eth0
 
-###IPv6 NDP
+### IPv6 NDP
 When a NDP cache entry was created:
 
     [2013-08-07 04:34:28.221875] ndp cache added: ip=2001:db8::2 mac=00:1b:8b:84:36:dc interface=eth0
