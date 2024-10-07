@@ -145,12 +145,16 @@ int parse_tcmsg_qdisc(struct nlmsghdr *nlh)
         } else if(!strncmp(kind, "hfsc", sizeof(kind))) {
             if(parse_tca_options_hfsc(msg, &mp, tca[TCA_OPTIONS]))
                 return(1);
+#if HAVE_DECL_TCA_CBQ_UNSPEC
         } else if(!strncmp(kind, "cbq", sizeof(kind))) {
             if(parse_tca_options_cbq(msg, &mp, tca[TCA_OPTIONS]))
                 return(1);
+#endif
+#if HAVE_DECL_TCA_DSMARK_UNSPEC
         } else if(!strncmp(kind, "dsmark", sizeof(kind))) {
             if(parse_tca_options_dsmark(msg, &mp, tca[TCA_OPTIONS]))
                 return(1);
+#endif
         } else if(!strncmp(kind, "netem", sizeof(kind))) {
             if(parse_tca_options_netem(msg, &mp, tca[TCA_OPTIONS]))
                 return(1);
@@ -414,10 +418,14 @@ void debug_tca_options(int lev, struct tcmsg *tcm, struct rtattr *tca,
         debug_tca_options_htb(lev, tca, name);
     else if(!strncmp(kind, "hfsc", len))
         debug_tca_options_hfsc(lev, tca, name);
+#if HAVE_DECL_TCA_CBQ_UNSPEC
     else if(!strncmp(kind, "cbq", len))
         debug_tca_options_cbq(lev, tca, name);
+#endif
+#if HAVE_DECL_TCA_DSMARK_UNSPEC
     else if(!strncmp(kind, "dsmark", len))
         debug_tca_options_dsmark(lev, tca, name);
+#endif
     else if(!strncmp(kind, "netem", len))
         debug_tca_options_netem(lev, tca, name);
 #if HAVE_DECL_TCA_DRR_UNSPEC
@@ -445,14 +453,18 @@ void debug_tca_options(int lev, struct tcmsg *tcm, struct rtattr *tca,
     /* kinds of filter */
     else if(!strncmp(kind, "u32", len))
         debug_tca_options_u32(lev, tca, name);
+#if HAVE_DECL_TCA_RSVP_UNSPEC
     else if(!strncmp(kind, "rsvp", len))
         debug_tca_options_rsvp(lev, tcm, tca, name);
+#endif
     else if(!strncmp(kind, "route", len))
         debug_tca_options_route(lev, tca, name);
     else if(!strncmp(kind, "fw", len))
         debug_tca_options_fw(lev, tca, name);
+#if HAVE_DECL_TCA_TCINDEX_UNSPEC
     else if(!strncmp(kind, "tcindex", len))
         debug_tca_options_tcindex(lev, tca, name);
+#endif
 #if HAVE_DECL_TCA_FLOW_UNSPEC
     else if(!strncmp(kind, "flow", len))
         debug_tca_options_flow(lev, tca, name);
@@ -513,8 +525,10 @@ void debug_tca_xstats(int lev, struct rtattr *tca,
 #endif
     else if(!strncmp(kind, "htb", len))
         debug_tc_htb_xstats(lev, tca, name);
+#if HAVE_DECL_TCA_CBQ_UNSPEC
     else if(!strncmp(kind, "cbq", len))
         debug_tc_cbq_xstats(lev, tca, name);
+#endif
 #if HAVE_DECL_TCA_DRR_UNSPEC
     else if(!strncmp(kind, "drr", len))
         debug_tc_drr_xstats(lev, tca, name);

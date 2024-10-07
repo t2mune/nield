@@ -19,6 +19,7 @@
 #include "nield.h"
 #include "rtnetlink.h"
 
+#if HAVE_DECL_TCA_RSVP_UNSPEC
 /*
  * parse rsvp options
  */
@@ -195,3 +196,4 @@ void debug_tca_rsvp_pinfo(int lev, struct rtattr *rsvp, const char *name)
     rec_dbg(lev, "        tunnelhdr(%d): %d", sizeof(pinfo->tunnelhdr), pinfo->tunnelhdr);
     rec_dbg(lev, "        pad(%d): %d", sizeof(pinfo->pad), pinfo->pad);
 }
+#endif

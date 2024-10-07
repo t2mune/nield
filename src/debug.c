@@ -48,7 +48,7 @@ void rec_dbg(int level, char *format, ...)
     int i;
 
     for(i = 0; i < level; i++)
-        strncat(indent, "    ", sizeof(indent));
+        strncat(indent, "    ", sizeof(indent)-1);
 
     va_start(ap, format);
 

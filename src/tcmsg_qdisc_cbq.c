@@ -19,6 +19,7 @@
 #include "nield.h"
 #include "rtnetlink.h"
 
+#if HAVE_DECL_TCA_CBQ_UNSPEC
 static double us2tick = 1;
 
 /*
@@ -368,3 +369,4 @@ void conv_tc_cbq_ovl_strategy(int strategy, char *strategy_list, int len)
     if(!strlen(strategy_list))
         strncpy(strategy_list, "UNKNOWN", len);
 }
+#endif

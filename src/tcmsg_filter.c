@@ -102,10 +102,12 @@ int parse_tcmsg_filter(struct nlmsghdr *nlh)
             if(parse_tca_options_u32(msg, &mp, tca[TCA_OPTIONS]))
                 return(1);
             return(0);
+#if HAVE_DECL_TCA_RSVP_UNSPEC
         } else if(!strncmp(kind, "rsvp", sizeof(kind))) {
             if(parse_tca_options_rsvp(msg, &mp, tcm, tca[TCA_OPTIONS]))
                 return(1);
             return(0);
+#endif
         } else if(!strncmp(kind, "route", sizeof(kind))) {
             if(parse_tca_options_route(msg, &mp, tca[TCA_OPTIONS]))
                 return(1);
@@ -114,10 +116,12 @@ int parse_tcmsg_filter(struct nlmsghdr *nlh)
             if(parse_tca_options_fw(msg, &mp, tca[TCA_OPTIONS]))
                 return(1);
             return(0);
+#if HAVE_DECL_TCA_TCINDEX_UNSPEC
         } else if(!strncmp(kind, "tcindex", sizeof(kind))) {
             if(parse_tca_options_tcindex(msg, &mp, tca[TCA_OPTIONS]))
                 return(1);
             return(0);
+#endif
 #if HAVE_DECL_TCA_FLOW_UNSPEC
         } else if(!strncmp(kind, "flow", sizeof(kind))) {
             if(parse_tca_options_flow(msg, &mp, tca[TCA_OPTIONS]))
@@ -1073,7 +1077,9 @@ const char *conv_tcf_meta_id(int id, unsigned char debug)
         _TCF_META_ID(DATALEN, datalen)
         _TCF_META_ID(MACLEN, maclen)
         _TCF_META_ID(NFMARK, nfmark)
+#if HAVE_DECL_TCA_TCINDEX_UNSPEC
         _TCF_META_ID(TCINDEX, tcindex)
+#endif
         _TCF_META_ID(RTCLASSID, rtclassid)
         _TCF_META_ID(RTIIF, rtiif)
         _TCF_META_ID(SK_FAMILY, sk_family)

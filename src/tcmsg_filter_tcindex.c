@@ -19,6 +19,7 @@
 #include "nield.h"
 #include "rtnetlink.h"
 
+#if HAVE_DECL_TCA_TCINDEX_UNSPEC
 /*
  * parse tcindex options
  */
@@ -162,3 +163,4 @@ void debug_tca_options_tcindex(int lev, struct rtattr *tca, const char *name)
         debug_tca_acts(lev+1, tcindex[TCA_TCINDEX_ACT],
             "TCA_TCINDEX_ACT");
 }
+#endif
