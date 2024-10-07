@@ -1,6 +1,6 @@
 /*
  * tcamsg_pedit.c - traffic control message parser
- * Copyright (C) 2011-2016 Tetsumune KISO <t2mune@gmail.com>
+ * Copyright (C) 2011-2024 Tetsumune KISO <t2mune@gmail.com>
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
