@@ -65,7 +65,9 @@
 # include <linux/tc_act/tc_csum.h>
 #endif
 #include <linux/tc_act/tc_gact.h>
+#ifdef HAVE_LINUX_TC_ACT_TC_IPT_H
 #include <linux/tc_act/tc_ipt.h>
+#endif
 #include <linux/tc_act/tc_mirred.h>
 #ifdef HAVE_LINUX_TC_ACT_TC_NAT_H
 # include <linux/tc_act/tc_nat.h>
@@ -487,6 +489,7 @@ void debug_tca_options_hfsc(int lev, struct rtattr *tca, const char *name);
 void debug_tca_hfsc_sc(int lev, struct rtattr *hfsc, const char *name);
 
 /* tcmsg_qdisc_cbq.c */
+#if HAVE_DECL_TCA_CBQ_UNSPEC
 int parse_tca_options_cbq(char *msg, char **mp, struct rtattr *tca);
 void debug_tca_options_cbq(int lev, struct rtattr *tca, const char *name);
 void debug_tca_cbq_lssopt(int lev, struct rtattr *cbq, const char *name);
@@ -499,10 +502,13 @@ void debug_tc_cbq_xstats(int lev, struct rtattr *tca, const char *name);
 void conv_tcf_cbq_lss_change(int change, char *change_list, int len);
 void conv_tcf_cbq_lss_flags(int flags, char *flags_list, int len);
 void conv_tc_cbq_ovl_strategy(int strategy, char *strategy_list, int len);
+#endif
 
 /* tcmsg_qdisc_dsmark.c */
+#if HAVE_DECL_TCA_DSMARK_UNSPEC
 int parse_tca_options_dsmark(char *msg, char **mp, struct rtattr *tca);
 void debug_tca_options_dsmark(int lev, struct rtattr *tca, const char *name);
+#endif
 
 /* tcmsg_qdisc_netem.c */
 int parse_tca_options_netem(char *msg, char **mp, struct rtattr *tca);

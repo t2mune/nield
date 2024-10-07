@@ -25,7 +25,9 @@
 int parse_tca_options_route(char *msg, char **mp, struct rtattr *tca)
 {
     struct rtattr *route[__TCA_ROUTE4_MAX];
+#if HAVE_DECL_TCA_RSVP_UNSPEC
     char *mp_tmp = *mp;
+#endif
 
     parse_nested_rtattr(route, TCA_ROUTE4_MAX, tca);
 
@@ -45,6 +47,7 @@ int parse_tca_options_route(char *msg, char **mp, struct rtattr *tca)
         if(parse_tca_route4_to(msg, mp, route[TCA_ROUTE4_TO]))
             return(1);
 
+#if HAVE_DECL_TCA_RSVP_UNSPEC
     if(*mp != mp_tmp)
         rec_log("%s", msg);
 
@@ -59,6 +62,7 @@ int parse_tca_options_route(char *msg, char **mp, struct rtattr *tca)
     if(route[TCA_ROUTE4_ACT])
         if(parse_tca_acts(msg, *mp, route[TCA_RSVP_ACT]))
             return(1);
+#endif
 
     return(0);
 }

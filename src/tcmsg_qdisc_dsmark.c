@@ -19,6 +19,7 @@
 #include "nield.h"
 #include "rtnetlink.h"
 
+#if HAVE_DECL_TCA_DSMARK_UNSPEC
 /*
  * parse dsmark options
  */
@@ -100,3 +101,4 @@ void debug_tca_options_dsmark(int lev, struct rtattr *tca, const char *name)
         debug_rta_u8x(lev+1, dsmark[TCA_DSMARK_VALUE],
             "TCA_DSMARK_VALUE", NULL);
 }
+#endif
